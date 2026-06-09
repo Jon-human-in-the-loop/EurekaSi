@@ -1,6 +1,7 @@
 import { useBooking } from '../booking'
 import { useLang, fill } from '../i18n'
 import { serviceMeta } from '../data'
+import { LockIcon } from '../icons'
 import Logo from './Logo'
 
 export default function Footer() {
@@ -64,12 +65,20 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-ink/[0.06] pt-6 text-xs text-ink-faint sm:flex-row sm:items-center">
           <p>{fill(t.footer.rights, { year: String(year) })}</p>
-          <div className="flex gap-5">
+          <div className="flex items-center gap-5">
             {t.footer.legal.map((l) => (
               <a key={l} href="#" className="transition hover:text-ink">
                 {l}
               </a>
             ))}
+            <a
+              href="#admin"
+              aria-label="Área reservada"
+              title="Área reservada"
+              className="text-ink-faint/60 transition hover:text-ink"
+            >
+              <LockIcon className="h-4 w-4" />
+            </a>
           </div>
         </div>
       </div>

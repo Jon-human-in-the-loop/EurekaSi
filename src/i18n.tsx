@@ -51,7 +51,7 @@ const pt = {
     subtitle:
       'Preços fixos e transparentes. Sabe sempre quanto vai pagar antes de avançar.',
     urgentBadge: 'Urgências',
-    priceFrom: 'desde',
+    freeQuote: 'Orçamento grátis',
     cardCta: 'Pedir',
     items: [
       {
@@ -329,7 +329,7 @@ const en: Dict = {
     title: 'Everything for your home, in one place.',
     subtitle: "Fixed, transparent prices. You always know what you'll pay before you commit.",
     urgentBadge: 'Emergencies',
-    priceFrom: 'from',
+    freeQuote: 'Free quote',
     cardCta: 'Request',
     items: [
       {
@@ -601,7 +601,7 @@ const es: Dict = {
     title: 'Todo para tu hogar, en un solo sitio.',
     subtitle: 'Precios fijos y transparentes. Siempre sabes cuánto vas a pagar antes de avanzar.',
     urgentBadge: 'Urgencias',
-    priceFrom: 'desde',
+    freeQuote: 'Presupuesto gratis',
     cardCta: 'Pedir',
     items: [
       {

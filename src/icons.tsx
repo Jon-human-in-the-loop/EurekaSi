@@ -146,6 +146,14 @@ export const PlusIcon = (p: IconProps) => (
   </svg>
 )
 
+export const LockIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <rect x="4.5" y="10.5" width="15" height="10" rx="2" />
+    <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" />
+    <circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none" />
+  </svg>
+)
+
 export const WhatsappIcon = (p: IconProps) => (
   <svg {...base({ fill: 'currentColor', stroke: 'none', ...p })}>
     <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4c0-.1-.5-1.3-.7-1.7s-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c.6.3 1.1.4 1.5.5a3.5 3.5 0 0 0 1.6.1 2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z" />

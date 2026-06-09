@@ -13,28 +13,26 @@ import type { ComponentType, SVGProps } from 'react'
 type IconType = ComponentType<SVGProps<SVGSVGElement>>
 
 /**
- * Metadados ESTRUTURAIS dos serviços (não traduzíveis): ícone, preço de
- * referência, unidade e se é uma categoria de urgências. O texto (nome,
- * tagline, exemplos) vive em src/i18n.tsx, alinhado por índice/id.
+ * Metadados ESTRUTURAIS dos serviços (não traduzíveis): ícone e se é uma
+ * categoria de urgências. O texto (nome, tagline, exemplos) vive em
+ * src/i18n.tsx. Os PREÇOS não são públicos — vivem na área de admin
+ * (src/admin/pricingData.ts), para captação de leads sem mostrar valores.
  */
 export type ServiceMeta = {
   id: string
   icon: IconType
-  priceFrom: number
-  /** sufixo de unidade, ex.: "/m²" para pintura */
-  unit?: string
   urgent?: boolean
 }
 
 export const serviceMeta: ServiceMeta[] = [
-  { id: 'canalizacao', icon: PlumbingIcon, priceFrom: 39, urgent: true },
-  { id: 'eletricidade', icon: ElectricIcon, priceFrom: 45, urgent: true },
-  { id: 'pintura', icon: PaintIcon, priceFrom: 6, unit: '/m²' },
-  { id: 'telhados', icon: RoofIcon, priceFrom: 79, urgent: true },
-  { id: 'limpeza', icon: CleanIcon, priceFrom: 29 },
-  { id: 'montagens', icon: CarpentryIcon, priceFrom: 25 },
-  { id: 'ar-condicionado', icon: AcIcon, priceFrom: 49, urgent: true },
-  { id: 'paineis-solares', icon: SolarIcon, priceFrom: 99 },
+  { id: 'canalizacao', icon: PlumbingIcon, urgent: true },
+  { id: 'eletricidade', icon: ElectricIcon, urgent: true },
+  { id: 'pintura', icon: PaintIcon },
+  { id: 'telhados', icon: RoofIcon, urgent: true },
+  { id: 'limpeza', icon: CleanIcon },
+  { id: 'montagens', icon: CarpentryIcon },
+  { id: 'ar-condicionado', icon: AcIcon, urgent: true },
+  { id: 'paineis-solares', icon: SolarIcon },
 ]
 
 /** Avaliações — dados estáveis (nomes, cidades, rating). O texto traduz-se no i18n. */

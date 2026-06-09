@@ -44,6 +44,34 @@ Espanhol (`es`).
 Para adicionar um idioma: acrescente o código a `LANGS`, crie um novo dicionário do
 tipo `Dict` e adicione-o ao mapa `dicts`.
 
+## 🔒 Área de administração (privada)
+
+O site público **não mostra preços** — o objetivo é captar leads (o modal de
+orçamento recolhe nome, telemóvel e código postal). A investigação de preços de
+mercado vive numa **área reservada**, acessível em:
+
+```
+/#admin          (ou clicar no cadeado no rodapé)
+```
+
+Inclui:
+
+- **Calculadora de orçamentos** — adiciona partidas com quantidade (horas, m²,
+  unidades…) a partir dos intervalos de mercado e calcula no instante: custo médio,
+  intervalo mín.–máx. e **preço sugerido ao cliente** (com margem % e IVA 23%
+  opcionais).
+- **Tabelas de referência** de preços por especialidade (PT 2024–2026), com fontes.
+- Resumo de **materiais incluídos** por serviço e nota de **IVA**.
+
+### ⚠️ Aviso de segurança
+
+A app é **só frontend**. O acesso ao painel é um *gate* por palavra-passe do lado do
+cliente (`VITE_ADMIN_PASSWORD`, ver `.env.example`): **oculta** a secção da vista
+pública mas **não é segurança real** — a palavra-passe e os dados acabam no bundle.
+Para dados verdadeiramente privados, mover os preços para um **backend** e proteger com
+**autenticação do lado do servidor** (e idealmente servir o painel a partir de uma rota
+autenticada). Esta versão é um primeiro passo funcional para uso interno.
+
 ## 🧱 Stack
 
 - [Vite](https://vite.dev) + [React 18](https://react.dev) + TypeScript (strict)
@@ -66,8 +94,13 @@ src/
 ├── App.tsx               # composição da página
 ├── booking.tsx           # contexto do fluxo de orçamento (abrir/fechar modal)
 ├── i18n.tsx              # dicionários PT/EN/ES + contexto de idioma
-├── data.ts               # dados estruturais: ícones, preços, tons, nomes próprios
+├── Root.tsx              # router por hash: #admin → painel; resto → site
+├── data.ts               # dados estruturais públicos: ícones, urgência
 ├── icons.tsx             # ícones SVG em linha
+├── admin/                # ÁREA PRIVADA (não pública)
+│   ├── AdminPage.tsx     # gate por palavra-passe + dashboard
+│   ├── BudgetCalculator.tsx  # calculadora de orçamentos
+│   └── pricingData.ts    # dados de preços de mercado + dados da calculadora
 └── components/
     ├── LangSwitcher.tsx  # seletor de idioma PT / EN / ES
     ├── Header.tsx        # navegação fixa + menu mobile

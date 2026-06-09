@@ -53,12 +53,8 @@ export default function Services() {
               </ul>
 
               <div className="mt-6 flex items-center justify-between border-t border-ink/[0.06] pt-4">
-                <span className="text-sm text-ink-muted">
-                  {t.services.priceFrom}{' '}
-                  <strong className="text-lg font-bold text-ink">{s.priceFrom}&nbsp;€</strong>
-                  {s.unit && <span className="text-xs">{s.unit}</span>}
-                </span>
-                <span className="flex items-center gap-1 text-sm font-semibold text-accent-700">
+                <span className="text-sm font-semibold text-accent-700">{t.services.freeQuote}</span>
+                <span className="flex items-center gap-1 text-sm font-semibold text-ink">
                   {t.services.cardCta}
                   <ArrowIcon className="h-4 w-4 transition group-hover:translate-x-0.5" />
                 </span>
