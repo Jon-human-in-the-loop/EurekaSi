@@ -21,9 +21,14 @@ declare global {
 }
 
 export function getSql(): Sql {
-  const url = process.env.DATABASE_URL
+  // Acepta DATABASE_URL o las variables que inyecta la integración de
+  // Postgres de Vercel (POSTGRES_URL / POSTGRES_URL_NON_POOLING).
+  const url =
+    process.env.DATABASE_URL ||
+    process.env.POSTGRES_URL ||
+    process.env.POSTGRES_URL_NON_POOLING
   if (!url) {
-    throw new Error('Falta la variable de entorno DATABASE_URL')
+    throw new Error('Falta DATABASE_URL (o POSTGRES_URL) en las variables de entorno')
   }
   if (!globalThis.__eurekasi_sql) {
     globalThis.__eurekasi_sql = postgres(url, {
