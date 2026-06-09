@@ -86,7 +86,7 @@ export default function Hero() {
           <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.16em] text-ink-faint">
             {t.hero.quickAccess}
           </p>
-          <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-6">
+          <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4">
             {serviceMeta.map((s, i) => {
               const Icon = s.icon
               return (

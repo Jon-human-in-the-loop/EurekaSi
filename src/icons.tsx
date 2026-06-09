@@ -65,6 +65,23 @@ export const CarpentryIcon = (p: IconProps) => (
   </svg>
 )
 
+export const AcIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <rect x="3" y="4" width="18" height="8" rx="2" />
+    <path d="M6 9h8" />
+    <path d="M7 15v1m0 3v0M12 15c0 1.5-1.5 1.5-1.5 3M17 15v1m0 3v0" />
+  </svg>
+)
+
+export const SolarIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M4 14l2-8h12l2 8z" />
+    <path d="M3 14h18" />
+    <path d="M12 6v8M8 14l.5-8M16 14l-.5-8M3.5 10h17" />
+    <path d="M12 14v3m0 0H9m3 0h3" />
+  </svg>
+)
+
 export const CheckIcon = (p: IconProps) => (
   <svg {...base(p)}>
     <path d="M4 12.5 9 17.5 20 6.5" strokeWidth={2} />

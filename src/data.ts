@@ -5,6 +5,8 @@ import {
   RoofIcon,
   CleanIcon,
   CarpentryIcon,
+  AcIcon,
+  SolarIcon,
 } from './icons'
 import type { ComponentType, SVGProps } from 'react'
 
@@ -31,6 +33,8 @@ export const serviceMeta: ServiceMeta[] = [
   { id: 'telhados', icon: RoofIcon, priceFrom: 79, urgent: true },
   { id: 'limpeza', icon: CleanIcon, priceFrom: 29 },
   { id: 'montagens', icon: CarpentryIcon, priceFrom: 25 },
+  { id: 'ar-condicionado', icon: AcIcon, priceFrom: 49, urgent: true },
+  { id: 'paineis-solares', icon: SolarIcon, priceFrom: 99 },
 ]
 
 /** Avaliações — dados estáveis (nomes, cidades, rating). O texto traduz-se no i18n. */

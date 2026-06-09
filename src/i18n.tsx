@@ -32,7 +32,7 @@ const pt = {
     titleLine1: 'O seu lar, resolvido.',
     titleLine2: 'Em minutos, não em dias.',
     subtitle:
-      'Canalização, eletricidade, pintura, telhados e limpeza. Profissionais verificados, preços fixos e sem surpresas. Peça já o seu orçamento gratuito.',
+      'Canalização, eletricidade, pintura, ar condicionado, painéis solares e mais. Profissionais verificados, preços fixos e sem surpresas. Peça já o seu orçamento gratuito.',
     ctaPrimary: 'Pedir orçamento grátis',
     ctaSecondary: 'Ver como funciona',
     trust: ['Preço fixo, sem surpresas', 'Profissionais verificados', 'Resposta em < 30 min'],
@@ -83,6 +83,16 @@ const pt = {
         name: 'Montagens & Reparos',
         tagline: 'Móveis, prateleiras e os pequenos arranjos do dia a dia.',
         examples: ['Montar móveis', 'Fixar prateleiras', 'Trocar fechaduras'],
+      },
+      {
+        name: 'Ar Condicionado',
+        tagline: 'Instalação e manutenção para conforto todo o ano.',
+        examples: ['Instalar split', 'Manutenção e limpeza', 'Carga de gás'],
+      },
+      {
+        name: 'Painéis Solares',
+        tagline: 'Energia mais barata com instalação certificada.',
+        examples: ['Instalar painéis', 'Manutenção e limpeza', 'Otimizar produção'],
       },
     ],
   },
@@ -301,7 +311,7 @@ const en: Dict = {
     titleLine1: 'Your home, sorted.',
     titleLine2: 'In minutes, not days.',
     subtitle:
-      'Plumbing, electrical, painting, roofing and cleaning. Verified professionals, fixed prices and no surprises. Get your free quote now.',
+      'Plumbing, electrical, painting, air conditioning, solar panels and more. Verified professionals, fixed prices and no surprises. Get your free quote now.',
     ctaPrimary: 'Get a free quote',
     ctaSecondary: 'See how it works',
     trust: ['Fixed price, no surprises', 'Verified professionals', 'Response in < 30 min'],
@@ -351,6 +361,16 @@ const en: Dict = {
         name: 'Assembly & Repairs',
         tagline: 'Furniture, shelves and the small everyday fixes.',
         examples: ['Assemble furniture', 'Mount shelves', 'Change locks'],
+      },
+      {
+        name: 'Air Conditioning',
+        tagline: 'Installation and maintenance for year-round comfort.',
+        examples: ['Install a split unit', 'Service & cleaning', 'Gas recharge'],
+      },
+      {
+        name: 'Solar Panels',
+        tagline: 'Cheaper energy with certified installation.',
+        examples: ['Install panels', 'Service & cleaning', 'Optimise output'],
       },
     ],
   },
@@ -563,7 +583,7 @@ const es: Dict = {
     titleLine1: 'Tu hogar, resuelto.',
     titleLine2: 'En minutos, no en días.',
     subtitle:
-      'Fontanería, electricidad, pintura, tejados y limpieza. Profesionales verificados, precios fijos y sin sorpresas. Pide ya tu presupuesto gratuito.',
+      'Fontanería, electricidad, pintura, aire acondicionado, paneles solares y más. Profesionales verificados, precios fijos y sin sorpresas. Pide ya tu presupuesto gratuito.',
     ctaPrimary: 'Pedir presupuesto gratis',
     ctaSecondary: 'Ver cómo funciona',
     trust: ['Precio fijo, sin sorpresas', 'Profesionales verificados', 'Respuesta en < 30 min'],
@@ -613,6 +633,16 @@ const es: Dict = {
         name: 'Montajes y Arreglos',
         tagline: 'Muebles, estantes y los pequeños arreglos del día a día.',
         examples: ['Montar muebles', 'Fijar estantes', 'Cambiar cerraduras'],
+      },
+      {
+        name: 'Aire Acondicionado',
+        tagline: 'Instalación y mantenimiento para confort todo el año.',
+        examples: ['Instalar split', 'Mantenimiento y limpieza', 'Recarga de gas'],
+      },
+      {
+        name: 'Paneles Solares',
+        tagline: 'Energía más barata con instalación certificada.',
+        examples: ['Instalar paneles', 'Mantenimiento y limpieza', 'Optimizar producción'],
       },
     ],
   },
