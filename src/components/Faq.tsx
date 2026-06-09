@@ -1,25 +1,24 @@
 import { useState } from 'react'
-import { faqs } from '../data'
+import { useLang } from '../i18n'
 import { PlusIcon } from '../icons'
 
 export default function Faq() {
+  const { t } = useLang()
   const [open, setOpen] = useState<number | null>(0)
 
   return (
     <section className="container-page py-20 sm:py-28">
       <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
-          <span className="eyebrow">Perguntas frequentes</span>
+          <span className="eyebrow">{t.faq.eyebrow}</span>
           <h2 className="mt-3 text-3xl font-extrabold tracking-tightest text-ink sm:text-4xl">
-            Tudo o que precisa de saber.
+            {t.faq.title}
           </h2>
-          <p className="mt-4 text-lg text-ink-muted">
-            Sem letras pequenas. Se ficar com dúvidas, fale connosco — respondemos a sério.
-          </p>
+          <p className="mt-4 text-lg text-ink-muted">{t.faq.subtitle}</p>
         </div>
 
         <div className="divide-y divide-ink/[0.08] border-y border-ink/[0.08]">
-          {faqs.map((f, i) => {
+          {t.faq.items.map((f, i) => {
             const isOpen = open === i
             return (
               <div key={f.q}>
@@ -42,9 +41,7 @@ export default function Faq() {
                     isOpen ? 'grid-rows-[1fr] pb-5 opacity-100' : 'grid-rows-[0fr] opacity-0'
                   }`}
                 >
-                  <p className="overflow-hidden text-[15px] leading-relaxed text-ink-muted">
-                    {f.a}
-                  </p>
+                  <p className="overflow-hidden text-[15px] leading-relaxed text-ink-muted">{f.a}</p>
                 </div>
               </div>
             )

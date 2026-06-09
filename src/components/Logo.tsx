@@ -7,8 +7,7 @@ export default function Logo({ className = '' }: { className?: string }) {
         <circle cx="46" cy="20" r="5" fill="#0FA873" />
       </svg>
       <span className="font-display text-xl font-extrabold tracking-tightest text-ink">
-        eureka
-        <span className="text-accent-500">.</span>
+        eureka<span className="text-accent-500">si.</span>
       </span>
     </span>
   )

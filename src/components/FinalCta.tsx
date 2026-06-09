@@ -1,8 +1,10 @@
 import { useBooking } from '../booking'
+import { useLang } from '../i18n'
 import { ArrowIcon, PhoneIcon, ClockIcon } from '../icons'
 
 export default function FinalCta() {
   const { open } = useBooking()
+  const { t } = useLang()
 
   return (
     <section className="container-page pb-24 pt-4 sm:pb-32">
@@ -18,21 +20,19 @@ export default function FinalCta() {
 
         <div className="relative">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium backdrop-blur">
-            <ClockIcon className="h-4 w-4" /> Resposta em menos de 30 minutos
+            <ClockIcon className="h-4 w-4" /> {t.finalCta.badge}
           </div>
           <h2 className="mx-auto mt-5 max-w-2xl text-3xl font-extrabold leading-tight tracking-tightest sm:text-5xl">
-            Pronto para resolver?
+            {t.finalCta.title}
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-white/80">
-            Orçamento gratuito e sem compromisso. Só paga quando o trabalho estiver feito.
-          </p>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-white/80">{t.finalCta.subtitle}</p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <button
               onClick={() => open()}
               className="btn w-full bg-white px-9 py-5 text-lg text-accent-700 shadow-lift hover:bg-white/90 sm:w-auto"
             >
-              Pedir orçamento grátis
+              {t.common.requestQuoteFree}
               <ArrowIcon className="h-5 w-5" />
             </button>
             <a

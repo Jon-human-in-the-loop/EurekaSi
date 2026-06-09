@@ -1,9 +1,11 @@
-import { services } from '../data'
 import { useBooking } from '../booking'
+import { useLang, fill } from '../i18n'
+import { serviceMeta } from '../data'
 import Logo from './Logo'
 
 export default function Footer() {
   const { open } = useBooking()
+  const { t } = useLang()
   const year = new Date().getFullYear()
 
   return (
@@ -12,22 +14,21 @@ export default function Footer() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
             <Logo />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-muted">
-              Serviços para o seu lar com profissionais verificados, preços fixos e resposta em
-              minutos. Em todo o Portugal Continental.
-            </p>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-muted">{t.footer.tagline}</p>
           </div>
 
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wide text-ink">Serviços</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wide text-ink">
+              {t.footer.servicesHead}
+            </h3>
             <ul className="mt-4 space-y-2.5">
-              {services.map((s) => (
+              {serviceMeta.map((s, i) => (
                 <li key={s.id}>
                   <button
                     onClick={() => open(s.id)}
                     className="text-sm text-ink-muted transition hover:text-ink"
                   >
-                    {s.name}
+                    {t.services.items[i].name}
                   </button>
                 </li>
               ))}
@@ -35,31 +36,40 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wide text-ink">Empresa</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wide text-ink">
+              {t.footer.companyHead}
+            </h3>
             <ul className="mt-4 space-y-2.5 text-sm text-ink-muted">
-              <li><a href="#trabalhos" className="transition hover:text-ink">Trabalhos</a></li>
-              <li><a href="#avaliacoes" className="transition hover:text-ink">Avaliações</a></li>
-              <li><a href="#como-funciona" className="transition hover:text-ink">Como funciona</a></li>
-              <li><a href="#" className="transition hover:text-ink">Trabalhar connosco</a></li>
+              {t.footer.companyLinks.map((l) => (
+                <li key={l.label}>
+                  <a href={l.href} className="transition hover:text-ink">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wide text-ink">Contacto</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wide text-ink">
+              {t.footer.contactHead}
+            </h3>
             <ul className="mt-4 space-y-2.5 text-sm text-ink-muted">
               <li><a href="tel:+351300000000" className="transition hover:text-ink">300 000 000</a></li>
-              <li><a href="mailto:ola@eureka.pt" className="transition hover:text-ink">ola@eureka.pt</a></li>
-              <li className="text-ink-faint">Seg–Dom · 8h–22h</li>
+              <li><a href="mailto:ola@eurekasi.pt" className="transition hover:text-ink">ola@eurekasi.pt</a></li>
+              <li className="text-ink-faint">{t.footer.hours}</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-ink/[0.06] pt-6 text-xs text-ink-faint sm:flex-row sm:items-center">
-          <p>© {year} Eureka Serviços. Todos os direitos reservados.</p>
+          <p>{fill(t.footer.rights, { year: String(year) })}</p>
           <div className="flex gap-5">
-            <a href="#" className="transition hover:text-ink">Termos</a>
-            <a href="#" className="transition hover:text-ink">Privacidade</a>
-            <a href="#" className="transition hover:text-ink">Cookies</a>
+            {t.footer.legal.map((l) => (
+              <a key={l} href="#" className="transition hover:text-ink">
+                {l}
+              </a>
+            ))}
           </div>
         </div>
       </div>

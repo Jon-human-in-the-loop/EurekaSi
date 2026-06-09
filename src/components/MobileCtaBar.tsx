@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useBooking } from '../booking'
+import { useLang } from '../i18n'
 import { ArrowIcon, WhatsappIcon } from '../icons'
 
 /**
@@ -8,6 +9,7 @@ import { ArrowIcon, WhatsappIcon } from '../icons'
  */
 export default function MobileCtaBar() {
   const { open, isOpen } = useBooking()
+  const { t } = useLang()
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -27,13 +29,13 @@ export default function MobileCtaBar() {
       <div className="flex items-center gap-2.5">
         <a
           href="https://wa.me/351300000000"
-          aria-label="Falar por WhatsApp"
+          aria-label="WhatsApp"
           className="grid h-14 w-14 shrink-0 place-items-center rounded-full border border-ink/10 bg-white p-3 text-accent-600"
         >
           <WhatsappIcon className="h-6 w-6" />
         </a>
         <button onClick={() => open()} className="btn-accent h-14 flex-1 py-0">
-          Pedir orçamento grátis
+          {t.common.requestQuoteFree}
           <ArrowIcon className="h-5 w-5" />
         </button>
       </div>

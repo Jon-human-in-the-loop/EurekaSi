@@ -1,4 +1,5 @@
 import { BookingProvider } from './booking'
+import { LangProvider } from './i18n'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Stats from './components/Stats'
@@ -15,22 +16,24 @@ import BookingModal from './components/BookingModal'
 
 export default function App() {
   return (
-    <BookingProvider>
-      <Header />
-      <main>
-        <Hero />
-        <Stats />
-        <Services />
-        <HowItWorks />
-        <BeforeAfter />
-        <Testimonials />
-        <Team />
-        <Faq />
-        <FinalCta />
-      </main>
-      <Footer />
-      <MobileCtaBar />
-      <BookingModal />
-    </BookingProvider>
+    <LangProvider>
+      <BookingProvider>
+        <Header />
+        <main>
+          <Hero />
+          <Stats />
+          <Services />
+          <HowItWorks />
+          <BeforeAfter />
+          <Testimonials />
+          <Team />
+          <Faq />
+          <FinalCta />
+        </main>
+        <Footer />
+        <MobileCtaBar />
+        <BookingModal />
+      </BookingProvider>
+    </LangProvider>
   )
 }

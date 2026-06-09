@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useBooking } from '../booking'
+import { useLang } from '../i18n'
 import { MenuIcon, CloseIcon } from '../icons'
 import Logo from './Logo'
+import LangSwitcher from './LangSwitcher'
 
-const links = [
-  { href: '#servicos', label: 'Serviços' },
-  { href: '#como-funciona', label: 'Como funciona' },
-  { href: '#trabalhos', label: 'Trabalhos' },
-  { href: '#avaliacoes', label: 'Avaliações' },
-]
+const hrefs = ['#servicos', '#como-funciona', '#trabalhos', '#avaliacoes']
 
 export default function Header() {
   const { open } = useBooking()
+  const { t } = useLang()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -22,6 +20,8 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const links = hrefs.map((href, i) => ({ href, label: t.nav[i] }))
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
@@ -29,7 +29,7 @@ export default function Header() {
       }`}
     >
       <div className="container-page flex h-16 items-center justify-between sm:h-20">
-        <a href="#topo" className="flex items-center" aria-label="Eureka — início">
+        <a href="#topo" className="flex items-center" aria-label={`${t.brand} — início`}>
           <Logo />
         </a>
 
@@ -46,15 +46,15 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <LangSwitcher className="hidden sm:inline-flex" />
           <button onClick={() => open()} className="btn-accent hidden h-11 px-5 py-0 text-sm sm:inline-flex">
-            Pedir orçamento
+            {t.common.requestQuote}
           </button>
           <button
             onClick={() => setMenuOpen((v) => !v)}
-            aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-label="Menu"
             className="grid h-11 w-11 place-items-center rounded-full text-ink transition hover:bg-sand md:hidden"
           >
-            {menuOpen ? <MenuIcon className="h-6 w-6 hidden" /> : null}
             {menuOpen ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
           </button>
         </div>
@@ -74,14 +74,17 @@ export default function Header() {
                 {l.label}
               </a>
             ))}
+            <div className="flex items-center justify-between py-4">
+              <LangSwitcher />
+            </div>
             <button
               onClick={() => {
                 setMenuOpen(false)
                 open()
               }}
-              className="btn-accent mt-4 mb-3 w-full"
+              className="btn-accent mb-3 w-full"
             >
-              Pedir orçamento grátis
+              {t.common.requestQuoteFree}
             </button>
           </nav>
         </div>

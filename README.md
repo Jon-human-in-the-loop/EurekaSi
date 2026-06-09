@@ -1,8 +1,11 @@
-# Eureka · Serviços para o seu lar
+# EurekaSi · Serviços para o seu lar
 
 Web app de **serviços do lar para o mercado português** — canalização, eletricidade,
 pintura, telhados, limpeza e montagens. Estética minimalista premium, focada na
 **conversão máxima** e **mobile-first**.
+
+**Trilingue:** Português (PT-PT) · English · Español — com seletor de idioma e
+deteção automática a partir do navegador.
 
 > O seu lar, resolvido. Em minutos, não em dias.
 
@@ -21,7 +24,25 @@ pintura, telhados, limpeza e montagens. Estética minimalista premium, focada na
 - **Imediatez** — “resposta em < 30 min”, profissionais disponíveis agora.
 - **Autenticidade** — secções *Antes/Depois* e *Equipa* estruturadas para **fotos reais**
   (placeholders prontos a substituir), sem imagens de stock genéricas.
-- **Tom de voz** profissional e de confiança, em **Português de Portugal** (pt-PT).
+- **Tom de voz** profissional e de confiança, em **Português de Portugal** (pt-PT),
+  **inglês** e **espanhol**.
+
+## 🌍 Internacionalização (i18n)
+
+O site está disponível em **três idiomas**: Português europeu (`pt`), Inglês (`en`) e
+Espanhol (`es`).
+
+- Todo o texto vive em `src/i18n.tsx`, num dicionário por idioma. O tipo `Dict` é
+  derivado do dicionário PT, pelo que o TypeScript **garante em tempo de compilação**
+  que EN e ES têm todas as chaves traduzidas — sem strings em falta.
+- O `src/data.ts` mantém apenas dados **estruturais** (ícones, preços, tons, nomes
+  próprios), alinhados por índice com os textos do `i18n`.
+- O idioma é detetado a partir do navegador, persistido em `localStorage`
+  (`eurekasi.lang`) e alternável pelo seletor **PT / EN / ES** no cabeçalho. O atributo
+  `<html lang>` é atualizado dinamicamente.
+
+Para adicionar um idioma: acrescente o código a `LANGS`, crie um novo dicionário do
+tipo `Dict` e adicione-o ao mapa `dicts`.
 
 ## 🧱 Stack
 
@@ -44,9 +65,11 @@ npm run preview  # pré-visualizar o build
 src/
 ├── App.tsx               # composição da página
 ├── booking.tsx           # contexto do fluxo de orçamento (abrir/fechar modal)
-├── data.ts               # serviços, preços, avaliações, FAQ, stats, antes/depois
+├── i18n.tsx              # dicionários PT/EN/ES + contexto de idioma
+├── data.ts               # dados estruturais: ícones, preços, tons, nomes próprios
 ├── icons.tsx             # ícones SVG em linha
 └── components/
+    ├── LangSwitcher.tsx  # seletor de idioma PT / EN / ES
     ├── Header.tsx        # navegação fixa + menu mobile
     ├── Hero.tsx          # headline, CTA protagonista, prova social, acesso rápido
     ├── Stats.tsx         # métricas de confiança

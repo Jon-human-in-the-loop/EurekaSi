@@ -1,9 +1,9 @@
 {
-  "name": "eureka-servicos",
+  "name": "eurekasi",
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Eureka — Serviços para o seu lar. Web app de serviços do lar para o mercado português.",
+  "description": "EurekaSi — Serviços para o seu lar. Web app trilingue (PT/EN/ES) de serviços do lar para o mercado português.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
