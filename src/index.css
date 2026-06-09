@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Tipografia de display com tracking apertado = estética premium */
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tightest;
+  }
+
+  ::selection {
+    @apply bg-accent-500/20 text-ink;
+  }
+
+  /* Respeita quem prefere menos movimento */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Largura de leitura confortável, mobile-first */
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+  }
+
+  /* Botão protagonista (inspiração PreFix): grande, claro, com toque generoso */
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-full
+      px-7 py-4 text-base font-semibold leading-none transition
+      duration-200 ease-out focus:outline-none focus-visible:ring-4
+      focus-visible:ring-accent-500/30 active:scale-[0.98];
+  }
+  .btn-primary {
+    @apply btn bg-ink text-white hover:bg-ink-soft shadow-lift;
+  }
+  .btn-accent {
+    @apply btn bg-accent-500 text-white hover:bg-accent-600 shadow-lift;
+  }
+  .btn-ghost {
+    @apply btn border border-ink/10 bg-white text-ink hover:border-ink/25 hover:bg-white;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent-700;
+  }
+
+  .card {
+    @apply rounded-3xl border border-ink/[0.06] bg-white shadow-soft;
+  }
+}
