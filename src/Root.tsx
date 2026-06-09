@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import App from './App'
-import AdminPage from './admin/AdminPage'
+
+// El panel admin se carga en un chunk aparte: no entra en el bundle público.
+const AdminPage = lazy(() => import('./admin/AdminPage'))
 
 /** Rota mínima por hash: #admin → painel privado; resto → site público. */
 function currentRoute() {
@@ -19,6 +21,18 @@ export default function Root() {
     return () => window.removeEventListener('hashchange', onChange)
   }, [])
 
-  if (route === 'admin') return <AdminPage />
+  if (route === 'admin') {
+    return (
+      <Suspense
+        fallback={
+          <div className="grid min-h-screen place-items-center bg-cream text-sm text-ink-muted">
+            Cargando…
+          </div>
+        }
+      >
+        <AdminPage />
+      </Suspense>
+    )
+  }
   return <App />
 }

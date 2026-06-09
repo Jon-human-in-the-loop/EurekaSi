@@ -11,7 +11,7 @@ const URGENCY_IDS: Urgency[] = ['hoje', 'esta-semana', 'flexivel']
 
 export default function BookingModal() {
   const { isOpen, close, preselectedService } = useBooking()
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const m = t.modal
 
   const [step, setStep] = useState<Step>(0)
@@ -19,6 +19,9 @@ export default function BookingModal() {
   const [urgency, setUrgency] = useState<Urgency | null>(null)
   const [detail, setDetail] = useState('')
   const [contact, setContact] = useState({ name: '', phone: '', postal: '' })
+  const [company, setCompany] = useState('') // honeypot anti-bot
+  const [sending, setSending] = useState(false)
+  const [sendError, setSendError] = useState(false)
 
   useEffect(() => {
     if (isOpen) {
@@ -27,6 +30,9 @@ export default function BookingModal() {
       setUrgency(null)
       setDetail('')
       setContact({ name: '', phone: '', postal: '' })
+      setCompany('')
+      setSending(false)
+      setSendError(false)
     }
   }, [isOpen, preselectedService])
 
@@ -50,7 +56,32 @@ export default function BookingModal() {
           ? contact.name.length > 0 && contact.phone.length >= 9
           : true
 
-  const submit = () => setStep(3)
+  const submit = async () => {
+    setSending(true)
+    setSendError(false)
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          service,
+          urgency,
+          detail,
+          name: contact.name,
+          phone: contact.phone,
+          postal: contact.postal,
+          lang,
+          company, // honeypot
+        }),
+      })
+      if (!res.ok) throw new Error(String(res.status))
+      setStep(3)
+    } catch {
+      setSendError(true)
+    } finally {
+      setSending(false)
+    }
+  }
 
   return (
     <div
@@ -202,10 +233,25 @@ export default function BookingModal() {
                   className="w-full rounded-2xl border border-ink/10 p-4 text-sm outline-none transition placeholder:text-ink-faint focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20"
                 />
               </label>
+              {/* Honeypot: oculto a humanos, los bots lo rellenan */}
+              <input
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+                className="absolute left-[-9999px] h-0 w-0 opacity-0"
+                aria-hidden="true"
+              />
               <p className="flex items-center gap-2 pt-1 text-xs text-ink-muted">
                 <ShieldIcon className="h-4 w-4 shrink-0 text-accent-600" />
                 {m.privacy}
               </p>
+              {sendError && (
+                <p className="rounded-2xl bg-red-50 px-4 py-2.5 text-sm font-medium text-red-600">
+                  {m.sendError}
+                </p>
+              )}
             </div>
           )}
 
@@ -239,17 +285,21 @@ export default function BookingModal() {
           {step < 3 ? (
             <div className="flex items-center gap-3">
               {step > 0 && (
-                <button onClick={() => setStep((s) => (s - 1) as Step)} className="btn-ghost flex-shrink-0">
+                <button
+                  onClick={() => setStep((s) => (s - 1) as Step)}
+                  disabled={sending}
+                  className="btn-ghost flex-shrink-0 disabled:opacity-40"
+                >
                   {m.back}
                 </button>
               )}
               <button
                 onClick={() => (step === 2 ? submit() : setStep((s) => (s + 1) as Step))}
-                disabled={!canContinue}
+                disabled={!canContinue || sending}
                 className="btn-accent flex-1 disabled:cursor-not-allowed disabled:opacity-40"
               >
-                {step === 2 ? m.submit : m.continue}
-                <ArrowIcon className="h-5 w-5" />
+                {step === 2 ? (sending ? m.sending : m.submit) : m.continue}
+                {!sending && <ArrowIcon className="h-5 w-5" />}
               </button>
             </div>
           ) : (

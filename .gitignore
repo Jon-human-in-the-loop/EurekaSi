@@ -12,6 +12,12 @@ dist-ssr
 *.local
 *.tsbuildinfo
 
+# Env & deploy
+.env
+.env.*
+!.env.example
+.vercel
+
 # Editor
 .vscode/*
 !.vscode/extensions.json

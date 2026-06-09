@@ -1,39 +1,76 @@
-import { useState } from 'react'
-import {
-  priceCategories,
-  materialsSummary,
-  ivaNote,
-  references,
-} from './pricingData'
-import { LockIcon, ShieldIcon } from '../icons'
+import { useCallback, useEffect, useState } from 'react'
+import { checkSession, fetchLeads, fetchPricing, login, logout } from './api'
+import type { Lead, PricingPayload } from './types'
+import { LockIcon } from '../icons'
 import Logo from '../components/Logo'
 import BudgetCalculator from './BudgetCalculator'
 
-/**
- * Área PRIVADA de administração — tablero interno de precios.
- *
- * ⚠️ AVISO DE SEGURIDAD: esta app es solo frontend. Este "gate" por
- * contraseña oculta la sección de la vista pública, pero NO es seguridad
- * real: tanto la contraseña como los datos acaban en el bundle del cliente.
- * Para producción, mover estos datos a un backend y protegerlos con
- * autenticación real del lado del servidor (ver README).
- */
+type Phase = 'checking' | 'locked' | 'ready'
 
-const ADMIN_PASSWORD = (import.meta.env.VITE_ADMIN_PASSWORD as string) || 'eurekasi2026'
-const SESSION_KEY = 'eurekasi.admin'
+export default function AdminPage() {
+  const [phase, setPhase] = useState<Phase>('checking')
+  const [pricing, setPricing] = useState<PricingPayload | null>(null)
+  const [leads, setLeads] = useState<Lead[]>([])
+  const [loadError, setLoadError] = useState(false)
 
-function Gate({ onUnlock }: { onUnlock: () => void }) {
+  const loadData = useCallback(async () => {
+    try {
+      const [p, l] = await Promise.all([fetchPricing(), fetchLeads()])
+      setPricing(p)
+      setLeads(l.leads)
+      setLoadError(false)
+      setPhase('ready')
+    } catch {
+      // Sesión inválida/expirada o error de red
+      setPhase('locked')
+    }
+  }, [])
+
+  useEffect(() => {
+    checkSession().then((ok) => (ok ? loadData() : setPhase('locked')))
+  }, [loadData])
+
+  const onLogout = async () => {
+    await logout()
+    setPricing(null)
+    setLeads([])
+    setPhase('locked')
+  }
+
+  if (phase === 'checking') {
+    return (
+      <div className="grid min-h-screen place-items-center bg-cream text-ink-muted">
+        <div className="animate-pulse text-sm">Cargando…</div>
+      </div>
+    )
+  }
+
+  if (phase === 'locked') return <Gate onSuccess={loadData} />
+
+  return (
+    <Dashboard
+      pricing={pricing!}
+      leads={leads}
+      loadError={loadError}
+      onRefresh={loadData}
+      onLogout={onLogout}
+    />
+  )
+}
+
+function Gate({ onSuccess }: { onSuccess: () => void }) {
   const [pw, setPw] = useState('')
   const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (pw === ADMIN_PASSWORD) {
-      sessionStorage.setItem(SESSION_KEY, '1')
-      onUnlock()
-    } else {
-      setError(true)
-    }
+    setLoading(true)
+    setError(false)
+    const ok = await login(pw)
+    setLoading(false)
+    if (ok) onSuccess()
+    else setError(true)
   }
 
   return (
@@ -45,13 +82,14 @@ function Gate({ onUnlock }: { onUnlock: () => void }) {
         <Logo className="justify-center" />
         <h1 className="mt-4 font-display text-xl font-bold tracking-tightest">Área reservada</h1>
         <p className="mt-1 text-sm text-ink-muted">
-          Painel interno de preços. Acceso solo para el equipo.
+          Painel interno. Acceso solo para el equipo.
         </p>
 
         <input
           type="password"
           value={pw}
           autoFocus
+          autoComplete="current-password"
           onChange={(e) => {
             setPw(e.target.value)
             setError(false)
@@ -65,8 +103,8 @@ function Gate({ onUnlock }: { onUnlock: () => void }) {
         />
         {error && <p className="mt-2 text-sm font-medium text-red-500">Contraseña incorrecta.</p>}
 
-        <button type="submit" className="btn-primary mt-4 w-full">
-          Entrar
+        <button type="submit" disabled={loading} className="btn-primary mt-4 w-full disabled:opacity-50">
+          {loading ? 'Entrando…' : 'Entrar'}
         </button>
         <a href="#" className="mt-4 inline-block text-xs text-ink-muted hover:text-ink">
           ← Voltar ao site
@@ -76,10 +114,21 @@ function Gate({ onUnlock }: { onUnlock: () => void }) {
   )
 }
 
-function Dashboard({ onLogout }: { onLogout: () => void }) {
+function Dashboard({
+  pricing,
+  leads,
+  loadError,
+  onRefresh,
+  onLogout,
+}: {
+  pricing: PricingPayload
+  leads: Lead[]
+  loadError: boolean
+  onRefresh: () => void
+  onLogout: () => void
+}) {
   return (
     <div className="min-h-screen bg-cream pb-20">
-      {/* Barra superior */}
       <header className="sticky top-0 z-10 border-b border-ink/[0.06] bg-cream/90 backdrop-blur-lg">
         <div className="container-page flex h-16 items-center justify-between">
           <div className="flex items-center gap-3">
@@ -103,37 +152,36 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
         <div className="max-w-3xl">
           <span className="eyebrow">Uso interno · No público</span>
           <h1 className="mt-3 font-display text-3xl font-extrabold tracking-tightest sm:text-4xl">
-            Investigación de precios — Portugal
+            Painel EurekaSi
           </h1>
           <p className="mt-3 text-lg text-ink-muted">
-            Tabla de referencia de mercado (2024–2026) para orçamentar leads. Estos valores
-            <strong> no se muestran</strong> en el site público.
+            Leads captados, calculadora de presupuestos e investigación de precios. Datos servidos
+            de forma segura desde el servidor.
           </p>
         </div>
 
-        {/* Aviso de seguridad */}
-        <div className="mt-6 flex items-start gap-3 rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 text-sm text-amber-900">
-          <ShieldIcon className="mt-0.5 h-5 w-5 shrink-0" />
-          <p>
-            <strong>Nota:</strong> este panel es un gate de cliente (oculta, no protege). Para
-            datos realmente privados, moverlos a un backend con autenticación. Ver README.
-          </p>
-        </div>
-
-        {/* Calculadora de presupuestos */}
+        {/* Leads */}
         <div className="mt-10">
-          <BudgetCalculator />
+          <LeadsTable leads={leads} loadError={loadError} onRefresh={onRefresh} />
         </div>
 
-        {/* Tablas por categoría */}
+        {/* Calculadora */}
+        <div className="mt-10">
+          <BudgetCalculator
+            calcCategories={pricing.calcCategories}
+            unitLabels={pricing.unitLabels}
+          />
+        </div>
+
+        {/* Tablas de referencia */}
         <div className="mt-10 space-y-8">
           <h2 className="font-display text-xl font-bold tracking-tightest">
             Tablas de referencia de mercado
           </h2>
-          {priceCategories.map((cat) => (
+          {pricing.priceCategories.map((cat) => (
             <section key={cat.id} className="card overflow-hidden">
               <div className="border-b border-ink/[0.06] bg-sand/40 px-5 py-4">
-                <h2 className="font-display text-lg font-bold tracking-tightest">{cat.titulo}</h2>
+                <h3 className="font-display text-lg font-bold tracking-tightest">{cat.titulo}</h3>
                 <p className="text-sm text-ink-muted">{cat.subtitulo}</p>
               </div>
               <div className="overflow-x-auto">
@@ -162,12 +210,10 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           ))}
         </div>
 
-        {/* Materiales incluidos */}
+        {/* Materiales */}
         <section className="card mt-10 overflow-hidden">
           <div className="border-b border-ink/[0.06] bg-sand/40 px-5 py-4">
-            <h2 className="font-display text-lg font-bold tracking-tightest">
-              ¿Incluye materiales?
-            </h2>
+            <h2 className="font-display text-lg font-bold tracking-tightest">¿Incluye materiales?</h2>
             <p className="text-sm text-ink-muted">Resumen de facturación en Portugal</p>
           </div>
           <div className="overflow-x-auto">
@@ -180,7 +226,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
                 </tr>
               </thead>
               <tbody>
-                {materialsSummary.map((m) => (
+                {pricing.materialsSummary.map((m) => (
                   <tr key={m.servicio} className="border-b border-ink/[0.04] last:border-0">
                     <td className="px-5 py-3 font-semibold text-ink">{m.servicio}</td>
                     <td className="whitespace-nowrap px-5 py-3">
@@ -204,17 +250,15 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           </div>
         </section>
 
-        {/* IVA */}
         <div className="mt-6 rounded-2xl border border-ink/10 bg-white p-5 text-sm text-ink-soft">
           <strong className="text-ink">IVA · </strong>
-          {ivaNote}
+          {pricing.ivaNote}
         </div>
 
-        {/* Referencias */}
         <section className="mt-10">
           <h2 className="font-display text-lg font-bold tracking-tightest">Fuentes</h2>
           <ol className="mt-3 grid gap-1.5 sm:grid-cols-2">
-            {references.map((r) => (
+            {pricing.references.map((r) => (
               <li key={r.n} className="text-xs text-ink-muted">
                 <span className="font-semibold text-ink-soft">[{r.n}]</span>{' '}
                 <a
@@ -234,16 +278,104 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
   )
 }
 
-export default function AdminPage() {
-  const [unlocked, setUnlocked] = useState(
-    () => sessionStorage.getItem(SESSION_KEY) === '1',
+const dateFmt = new Intl.DateTimeFormat('pt-PT', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+})
+
+const urgencyLabel: Record<string, string> = {
+  hoje: 'Urgente',
+  'esta-semana': 'Esta semana',
+  flexivel: 'Flexible',
+}
+
+function LeadsTable({
+  leads,
+  loadError,
+  onRefresh,
+}: {
+  leads: Lead[]
+  loadError: boolean
+  onRefresh: () => void
+}) {
+  return (
+    <section className="card overflow-hidden">
+      <div className="flex items-center justify-between border-b border-ink/[0.06] bg-sand/40 px-5 py-4">
+        <div>
+          <h2 className="font-display text-lg font-bold tracking-tightest">
+            Leads <span className="text-ink-muted">({leads.length})</span>
+          </h2>
+          <p className="text-sm text-ink-muted">Contactos captados en el formulario público.</p>
+        </div>
+        <button onClick={onRefresh} className="btn-ghost h-10 px-4 py-0 text-sm">
+          Actualizar
+        </button>
+      </div>
+
+      {loadError ? (
+        <p className="px-5 py-8 text-center text-sm text-red-500">No se pudieron cargar los leads.</p>
+      ) : leads.length === 0 ? (
+        <p className="px-5 py-10 text-center text-sm text-ink-muted">
+          Aún no hay leads. Aparecerán aquí en cuanto alguien envíe el formulario.
+        </p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[720px] text-left text-sm">
+            <thead>
+              <tr className="border-b border-ink/[0.06] text-xs uppercase tracking-wide text-ink-faint">
+                <th className="px-5 py-3 font-semibold">Fecha</th>
+                <th className="px-5 py-3 font-semibold">Nombre</th>
+                <th className="px-5 py-3 font-semibold">Teléfono</th>
+                <th className="px-5 py-3 font-semibold">Servicio</th>
+                <th className="px-5 py-3 font-semibold">Urgencia</th>
+                <th className="px-5 py-3 font-semibold">C. postal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {leads.map((l) => (
+                <tr key={l.id} className="border-b border-ink/[0.04] align-top last:border-0">
+                  <td className="whitespace-nowrap px-5 py-3 text-ink-muted">
+                    {dateFmt.format(new Date(l.created_at))}
+                  </td>
+                  <td className="px-5 py-3 font-semibold text-ink">
+                    {l.name}
+                    {l.detail && (
+                      <span className="mt-0.5 block max-w-[220px] truncate text-xs font-normal text-ink-faint">
+                        {l.detail}
+                      </span>
+                    )}
+                  </td>
+                  <td className="whitespace-nowrap px-5 py-3">
+                    <a href={`tel:${l.phone}`} className="font-medium text-accent-700 hover:underline">
+                      {l.phone}
+                    </a>
+                  </td>
+                  <td className="whitespace-nowrap px-5 py-3 text-ink-soft">{l.service ?? '—'}</td>
+                  <td className="whitespace-nowrap px-5 py-3">
+                    {l.urgency ? (
+                      <span
+                        className={`rounded-full px-2.5 py-1 text-xs font-bold ${
+                          l.urgency === 'hoje'
+                            ? 'bg-red-50 text-red-600'
+                            : 'bg-sand text-ink-soft'
+                        }`}
+                      >
+                        {urgencyLabel[l.urgency] ?? l.urgency}
+                      </span>
+                    ) : (
+                      '—'
+                    )}
+                  </td>
+                  <td className="whitespace-nowrap px-5 py-3 text-ink-soft">{l.postal ?? '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
   )
-
-  const logout = () => {
-    sessionStorage.removeItem(SESSION_KEY)
-    setUnlocked(false)
-  }
-
-  if (!unlocked) return <Gate onUnlock={() => setUnlocked(true)} />
-  return <Dashboard onLogout={logout} />
 }

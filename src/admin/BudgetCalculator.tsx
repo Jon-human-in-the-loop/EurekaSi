@@ -1,23 +1,31 @@
 import { useMemo, useState } from 'react'
-import { calcCategories, unitLabels, type CalcItem } from './pricingData'
+import type { CalcCategory, CalcItem, UnitLabels } from './types'
 
 const fmt = (n: number) =>
   new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(
     Math.round(n),
   )
 
-const allItems: CalcItem[] = calcCategories.flatMap((c) => c.items)
-
 /**
- * Calculadora de presupuestos para uso interno: parte de los rangos de
- * referencia del mercado y calcula coste promedio, rango y precio sugerido
- * al cliente (con margen e IVA opcionales).
+ * Calculadora de presupuestos (uso interno). Los datos de precios llegan por
+ * props desde el endpoint protegido — nunca están en el bundle público.
  */
-export default function BudgetCalculator() {
-  const [activeCat, setActiveCat] = useState(calcCategories[0].id)
+export default function BudgetCalculator({
+  calcCategories,
+  unitLabels,
+}: {
+  calcCategories: CalcCategory[]
+  unitLabels: UnitLabels
+}) {
+  const [activeCat, setActiveCat] = useState(calcCategories[0]?.id ?? '')
   const [qty, setQty] = useState<Record<string, number>>({})
   const [margin, setMargin] = useState(30)
   const [iva, setIva] = useState(true)
+
+  const allItems = useMemo<CalcItem[]>(
+    () => calcCategories.flatMap((c) => c.items),
+    [calcCategories],
+  )
 
   const setItemQty = (id: string, value: number) =>
     setQty((q) => ({ ...q, [id]: Number.isFinite(value) && value > 0 ? value : 0 }))
@@ -28,15 +36,9 @@ export default function BudgetCalculator() {
         .filter((it) => (qty[it.id] ?? 0) > 0)
         .map((it) => {
           const q = qty[it.id]
-          return {
-            ...it,
-            q,
-            min: it.min * q,
-            max: it.max * q,
-            avg: ((it.min + it.max) / 2) * q,
-          }
+          return { ...it, q, min: it.min * q, max: it.max * q, avg: ((it.min + it.max) / 2) * q }
         }),
-    [qty],
+    [qty, allItems],
   )
 
   const totals = useMemo(() => {
@@ -48,7 +50,7 @@ export default function BudgetCalculator() {
     return { min, max, avg, suggested }
   }, [lines, margin, iva])
 
-  const category = calcCategories.find((c) => c.id === activeCat)!
+  const category = calcCategories.find((c) => c.id === activeCat) ?? calcCategories[0]
 
   return (
     <section className="card overflow-hidden">
@@ -62,18 +64,14 @@ export default function BudgetCalculator() {
       </div>
 
       <div className="grid gap-6 p-5 lg:grid-cols-[1.3fr_1fr]">
-        {/* Entrada de partidas */}
         <div>
-          {/* Selector de categoría */}
           <div className="flex flex-wrap gap-1.5">
             {calcCategories.map((c) => (
               <button
                 key={c.id}
                 onClick={() => setActiveCat(c.id)}
                 className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
-                  c.id === activeCat
-                    ? 'bg-ink text-white'
-                    : 'bg-sand text-ink-soft hover:bg-sand/70'
+                  c.id === category?.id ? 'bg-ink text-white' : 'bg-sand text-ink-soft hover:bg-sand/70'
                 }`}
               >
                 {c.titulo}
@@ -81,9 +79,8 @@ export default function BudgetCalculator() {
             ))}
           </div>
 
-          {/* Partidas de la categoría */}
           <div className="mt-4 space-y-2">
-            {category.items.map((it) => {
+            {category?.items.map((it) => {
               const u = unitLabels[it.unit]
               const avgUnit = (it.min + it.max) / 2
               return (
@@ -117,7 +114,6 @@ export default function BudgetCalculator() {
           </div>
         </div>
 
-        {/* Resumen */}
         <div className="lg:sticky lg:top-20 lg:self-start">
           <div className="rounded-2xl border border-ink/[0.08] bg-cream p-5">
             <div className="flex items-center justify-between">
@@ -149,7 +145,6 @@ export default function BudgetCalculator() {
               </ul>
             )}
 
-            {/* Totales */}
             <div className="mt-3 space-y-1.5 text-sm">
               <div className="flex justify-between text-ink-muted">
                 <span>Rango de mercado</span>
@@ -163,7 +158,6 @@ export default function BudgetCalculator() {
               </div>
             </div>
 
-            {/* Ajustes precio cliente */}
             <div className="mt-4 space-y-3 border-t border-ink/[0.08] pt-4">
               <label className="flex items-center justify-between gap-3 text-sm">
                 <span className="font-medium text-ink-soft">Margen</span>
@@ -189,7 +183,6 @@ export default function BudgetCalculator() {
               </label>
             </div>
 
-            {/* Precio sugerido */}
             <div className="mt-4 rounded-2xl bg-ink p-4 text-white">
               <div className="text-xs uppercase tracking-wide text-white/60">
                 Precio sugerido al cliente

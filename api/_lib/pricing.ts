@@ -1,25 +1,11 @@
 /**
- * DADOS PRIVADOS — apenas para a área de administração (não público).
- * Investigação de mercado de preços de serviços de manutenção do lar em
- * Portugal (2024–2026). Fonte: relatório interno + referências no fim.
- *
- * Estes valores NÃO devem ser mostrados no site público; servem de apoio
- * interno à equipa para orçamentar leads.
+ * DATOS PRIVADOS de precios — viven SOLO en el servidor. Se sirven a través
+ * del endpoint protegido /api/admin/pricing, por lo que nunca llegan al
+ * bundle público. Investigación de mercado de Portugal (2024–2026).
  */
 
-export type PriceRow = {
-  concepto: string
-  desde: string
-  rango: string
-  notas: string
-}
-
-export type PriceCategory = {
-  id: string
-  titulo: string
-  subtitulo: string
-  filas: PriceRow[]
-}
+export type PriceRow = { concepto: string; desde: string; rango: string; notas: string }
+export type PriceCategory = { id: string; titulo: string; subtitulo: string; filas: PriceRow[] }
 
 export const priceCategories: PriceCategory[] = [
   {
@@ -112,26 +98,9 @@ export const priceCategories: PriceCategory[] = [
   },
 ]
 
-export type MaterialRow = { servicio: string; incluido: string; observacion: string }
-
-export const materialsSummary: MaterialRow[] = [
-  { servicio: 'Fontanería / Electricidad', incluido: 'No', observacion: 'Se detalla en la factura como "Materiais" (tuberías, grifos, cuadro…).' },
-  { servicio: 'Pintura', incluido: 'Depende', observacion: 'El presupuesto debe especificar "com" o "sem" materiales. ~10–15€/m² ya incluye pintura.' },
-  { servicio: 'Limpieza', incluido: 'Sí', observacion: 'Productos químicos y utensilios suelen estar incluidos.' },
-  { servicio: 'Aire acondicionado', incluido: 'Parcial', observacion: 'Limpieza incluida; recarga de gas o piezas mecánicas se cobran aparte.' },
-  { servicio: 'Paneles solares', incluido: 'Sí', observacion: 'Mantenimiento/limpieza incluye insumos básicos; repuestos aparte.' },
-  { servicio: 'Montajes', incluido: 'No', observacion: 'Se asume mueble y herrajes del cliente; tacos/silicona pueden ser extra.' },
-]
-
-export const ivaNote =
-  'IVA en Portugal: los presupuestos a particulares suelen indicarse con IVA incluido (23%). En obras de mejora en vivienda pueden aplicar tipos reducidos bajo ciertas condiciones. Confirmar siempre si el valor es "Líquido" (sin IVA) o "Final" (con IVA): puede variar el coste un 23%.'
-
-/* ------------------------------------------------------------------ */
-/*  Datos NUMÉRICOS para la calculadora de presupuestos                 */
-/* ------------------------------------------------------------------ */
-
-/** Unidad de cobro de cada partida. */
 export type CalcUnit = 'fijo' | 'hora' | 'm2' | 'ud'
+export type CalcItem = { id: string; label: string; unit: CalcUnit; min: number; max: number }
+export type CalcCategory = { id: string; titulo: string; items: CalcItem[] }
 
 export const unitLabels: Record<CalcUnit, { short: string; qty: string }> = {
   fijo: { short: '', qty: 'cantidad' },
@@ -140,21 +109,6 @@ export const unitLabels: Record<CalcUnit, { short: string; qty: string }> = {
   ud: { short: '/ud', qty: 'unidades' },
 }
 
-export type CalcItem = {
-  id: string
-  label: string
-  unit: CalcUnit
-  min: number
-  max: number
-}
-
-export type CalcCategory = {
-  id: string
-  titulo: string
-  items: CalcItem[]
-}
-
-/** Rangos derivados del informe de mercado (valores promedio de referencia). */
 export const calcCategories: CalcCategory[] = [
   {
     id: 'canalizacao',
@@ -238,6 +192,20 @@ export const calcCategories: CalcCategory[] = [
   },
 ]
 
+export type MaterialRow = { servicio: string; incluido: string; observacion: string }
+
+export const materialsSummary: MaterialRow[] = [
+  { servicio: 'Fontanería / Electricidad', incluido: 'No', observacion: 'Se detalla en la factura como "Materiais" (tuberías, grifos, cuadro…).' },
+  { servicio: 'Pintura', incluido: 'Depende', observacion: 'El presupuesto debe especificar "com" o "sem" materiales. ~10–15€/m² ya incluye pintura.' },
+  { servicio: 'Limpieza', incluido: 'Sí', observacion: 'Productos químicos y utensilios suelen estar incluidos.' },
+  { servicio: 'Aire acondicionado', incluido: 'Parcial', observacion: 'Limpieza incluida; recarga de gas o piezas mecánicas se cobran aparte.' },
+  { servicio: 'Paneles solares', incluido: 'Sí', observacion: 'Mantenimiento/limpieza incluye insumos básicos; repuestos aparte.' },
+  { servicio: 'Montajes', incluido: 'No', observacion: 'Se asume mueble y herrajes del cliente; tacos/silicona pueden ser extra.' },
+]
+
+export const ivaNote =
+  'IVA en Portugal: los presupuestos a particulares suelen indicarse con IVA incluido (23%). En obras de mejora en vivienda pueden aplicar tipos reducidos bajo ciertas condiciones. Confirmar siempre si el valor es "Líquido" (sin IVA) o "Final" (con IVA): puede variar el coste un 23%.'
+
 export type Reference = { n: number; label: string; url: string }
 
 export const references: Reference[] = [
@@ -264,3 +232,15 @@ export const references: Reference[] = [
   { n: 26, label: 'Leroymerlin.pt — Manutenção e limpeza até 8 painéis', url: 'https://www.leroymerlin.pt/servicos/servicos-para-paineis-solares-fotovoltaicos/manutencao-preventiva-e-limpeza-ate-8-paineis-fotovoltaicos.html' },
   { n: 27, label: 'Habitissimo.pt — Preço da limpeza dos painéis solares', url: 'https://www.habitissimo.pt/orcamentos/limpeza-de-painel-solar' },
 ]
+
+/** Payload completo que devuelve el endpoint protegido /api/admin/pricing. */
+export function pricingPayload() {
+  return {
+    priceCategories,
+    calcCategories,
+    unitLabels,
+    materialsSummary,
+    ivaNote,
+    references,
+  }
+}

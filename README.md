@@ -17,8 +17,9 @@ deteção automática a partir do navegador.
   só mão. Barra de CTA fixa inferior + acesso rápido aos serviços.
 - **O botão é o protagonista** (inspiração PreFix) — o CTA *“Pedir orçamento grátis”*
   domina cada secção.
-- **Transparência de preços** (inspiração OSCAR) — preço fixo “desde” visível em cada
-  serviço, sem surpresas.
+- **Foco em conversão** — o site público não mostra preços; cada serviço leva ao modal
+  de orçamento grátis para **captar o lead** (nome + telemóvel). Os preços de referência
+  vivem na área de admin (ver abaixo).
 - **Prova social imediata** (inspiração Absolute Home Services) — avaliações e rating
   4,9/5 logo no hero.
 - **Imediatez** — “resposta em < 30 min”, profissionais disponíveis agora.
@@ -44,63 +45,98 @@ Espanhol (`es`).
 Para adicionar um idioma: acrescente o código a `LANGS`, crie um novo dicionário do
 tipo `Dict` e adicione-o ao mapa `dicts`.
 
-## 🔒 Área de administração (privada)
+## 🔒 Área de administração (privada, com backend seguro)
 
-O site público **não mostra preços** — o objetivo é captar leads (o modal de
-orçamento recolhe nome, telemóvel e código postal). A investigação de preços de
-mercado vive numa **área reservada**, acessível em:
+O site público **não mostra preços** — o objetivo é **captar leads** (o modal recolhe
+nome, telemóvel e código postal e envia-os para `POST /api/leads`). A área reservada
+está em `/#admin` (ou no cadeado do rodapé) e é protegida por **autenticação real do
+lado do servidor**:
 
-```
-/#admin          (ou clicar no cadeado no rodapé)
-```
+- **Login** contra uma palavra-passe com hash **scrypt** (`ADMIN_PASSWORD_HASH`); a
+  sessão é uma cookie **HttpOnly + Secure + SameSite** assinada com HMAC
+  (`SESSION_SECRET`). Não há palavra-passe nem dados sensíveis no bundle.
+- **Leads** — guardados em **PostgreSQL** e listados no painel (`GET /api/admin/leads`).
+  Notificação opcional por **email** (Resend) a cada novo lead.
+- **Calculadora de orçamentos** e **tabelas de preços** — os dados de preços vivem
+  **só no servidor** e servem-se via endpoint protegido (`GET /api/admin/pricing`),
+  fora do bundle público. O chunk da UI do painel também é carregado em separado.
 
-Inclui:
+### Endpoints (`/api`, funções serverless)
 
-- **Calculadora de orçamentos** — adiciona partidas com quantidade (horas, m²,
-  unidades…) a partir dos intervalos de mercado e calcula no instante: custo médio,
-  intervalo mín.–máx. e **preço sugerido ao cliente** (com margem % e IVA 23%
-  opcionais).
-- **Tabelas de referência** de preços por especialidade (PT 2024–2026), com fontes.
-- Resumo de **materiais incluídos** por serviço e nota de **IVA**.
+| Método | Rota | Acesso | Função |
+| --- | --- | --- | --- |
+| `POST` | `/api/leads` | Público | Cria um lead (validação + honeypot + rate-limit) |
+| `POST` | `/api/admin/login` | Público | Verifica a palavra-passe → cookie de sessão |
+| `POST` | `/api/admin/logout` | Sessão | Termina a sessão |
+| `GET` | `/api/admin/session` | — | Indica se a sessão é válida |
+| `GET` | `/api/admin/leads` | Sessão | Lista de leads |
+| `GET` | `/api/admin/pricing` | Sessão | Dados de preços + calculadora |
 
-### ⚠️ Aviso de segurança
+## 🚢 Produção (Vercel / Netlify + PostgreSQL)
 
-A app é **só frontend**. O acesso ao painel é um *gate* por palavra-passe do lado do
-cliente (`VITE_ADMIN_PASSWORD`, ver `.env.example`): **oculta** a secção da vista
-pública mas **não é segurança real** — a palavra-passe e os dados acabam no bundle.
-Para dados verdadeiramente privados, mover os preços para um **backend** e proteger com
-**autenticação do lado do servidor** (e idealmente servir o painel a partir de uma rota
-autenticada). Esta versão é um primeiro passo funcional para uso interno.
+1. **Base de dados**: cria um PostgreSQL gestionado (Neon, Supabase ou Vercel Postgres)
+   e copia a `DATABASE_URL`. As tabelas criam-se sozinhas no primeiro pedido.
+2. **Palavra-passe do admin**: `npm run hash:password -- "a-tua-password-longa"` e
+   guarda o resultado em `ADMIN_PASSWORD_HASH`.
+3. **Segredo de sessão**: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
+   → `SESSION_SECRET`.
+4. **Email (opcional)**: cria uma API key em [Resend](https://resend.com) e define
+   `RESEND_API_KEY`, `LEAD_NOTIFY_FROM`, `LEAD_NOTIFY_TO`.
+5. Define todas as variáveis no painel do host (ver `.env.example`) e faz deploy.
+   No Vercel, a pasta `/api` vira funções serverless automaticamente e o frontend Vite
+   é servido como estático (config em `vercel.json`).
+
+> **Netlify:** funciona com um pequeno adaptador (`netlify/functions` + redirects de
+> `/api/*`). O Vercel é o caminho recomendado pela convenção `/api` sem configuração.
+
+### Endurecimento recomendado (próximos passos)
+
+- Ativar **rate-limiting / WAF a nível de plataforma** (o limitador em memória é
+  best-effort, reinicia por instância serverless).
+- Rotação periódica de `SESSION_SECRET` e política de palavra-passe forte.
+- `Content-Security-Policy` afinada e, se necessário, **2FA** para o admin.
 
 ## 🧱 Stack
 
-- [Vite](https://vite.dev) + [React 18](https://react.dev) + TypeScript (strict)
-- [Tailwind CSS](https://tailwindcss.com) com design tokens próprios
-- Sem dependências de UI/ícones externas — ícones SVG em linha para um bundle leve
+- **Frontend:** [Vite](https://vite.dev) + [React 18](https://react.dev) + TypeScript (strict)
+  + [Tailwind CSS](https://tailwindcss.com). Sem dependências de UI/ícones (SVG em linha).
+- **Backend:** funções serverless TypeScript em `/api` + **PostgreSQL** (driver `postgres`).
+  Auth com `node:crypto` (scrypt + HMAC), sem dependências pesadas. Email via Resend.
 
 ## 🚀 Começar
 
 ```bash
-npm install      # instalar dependências
-npm run dev      # servidor de desenvolvimento (http://localhost:5173)
-npm run build    # type-check + build de produção
-npm run preview  # pré-visualizar o build
+npm install              # instalar dependências
+npm run dev              # frontend em desenvolvimento (http://localhost:5173)
+npm run build            # type-check + build de produção do frontend
+npm run typecheck        # type-check do frontend E das funções /api
+npm run hash:password -- "minha-password"   # gerar ADMIN_PASSWORD_HASH
 ```
+
+> Para correr as funções `/api` localmente, usa o Vercel CLI (`vercel dev`) com um
+> ficheiro `.env` baseado em `.env.example` (precisa de uma `DATABASE_URL` válida).
 
 ## 📁 Estrutura
 
 ```
+api/                      # FUNÇÕES SERVERLESS (backend seguro)
+├── leads.ts              # POST público: criar lead
+├── admin/                # endpoints protegidos por sessão
+│   ├── login.ts · logout.ts · session.ts · leads.ts · pricing.ts
+└── _lib/                 # db (Postgres) · auth (scrypt+HMAC) · email · pricing · http
+
 src/
-├── App.tsx               # composição da página
+├── App.tsx               # composição da página pública
 ├── booking.tsx           # contexto do fluxo de orçamento (abrir/fechar modal)
 ├── i18n.tsx              # dicionários PT/EN/ES + contexto de idioma
-├── Root.tsx              # router por hash: #admin → painel; resto → site
+├── Root.tsx              # router por hash: #admin (lazy) → painel; resto → site
 ├── data.ts               # dados estruturais públicos: ícones, urgência
 ├── icons.tsx             # ícones SVG em linha
-├── admin/                # ÁREA PRIVADA (não pública)
-│   ├── AdminPage.tsx     # gate por palavra-passe + dashboard
-│   ├── BudgetCalculator.tsx  # calculadora de orçamentos
-│   └── pricingData.ts    # dados de preços de mercado + dados da calculadora
+├── admin/                # UI PRIVADA (dados vêm da API, não do bundle)
+│   ├── AdminPage.tsx     # login real + dashboard (leads, calculadora, preços)
+│   ├── BudgetCalculator.tsx  # calculadora de orçamentos (dados via props)
+│   ├── api.ts            # cliente da API admin
+│   └── types.ts          # tipos das respostas JSON
 └── components/
     ├── LangSwitcher.tsx  # seletor de idioma PT / EN / ES
     ├── Header.tsx        # navegação fixa + menu mobile
