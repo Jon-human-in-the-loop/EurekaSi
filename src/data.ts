@@ -51,6 +51,20 @@ export const countries: Country[] = [
   { code: 'pt', colors: ['#006600', '#FF0000'] },
 ]
 
+/**
+ * Contactos (fonte única). O telefone de chamadas aceita também mensagens;
+ * o segundo número é apenas para mensagens / WhatsApp.
+ */
+export const contact = {
+  // Chamadas e mensagens
+  callPhone: '+351 920 093 089',
+  callHref: 'tel:+351920093089',
+  // Apenas mensagens / WhatsApp
+  whatsappPhone: '+351 933 027 128',
+  whatsappHref: 'https://wa.me/351933027128',
+  email: 'ola@eurekasi.pt',
+}
+
 /** Antes/Depois — tons dos placeholders + localização (nome próprio, não traduz). */
 export type BeforeAfterMeta = {
   id: string

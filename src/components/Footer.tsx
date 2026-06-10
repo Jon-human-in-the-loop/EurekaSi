@@ -1,6 +1,6 @@
 import { useBooking } from '../booking'
 import { useLang, fill } from '../i18n'
-import { serviceMeta } from '../data'
+import { serviceMeta, contact } from '../data'
 import { LockIcon } from '../icons'
 import Logo from './Logo'
 
@@ -56,8 +56,28 @@ export default function Footer() {
               {t.footer.contactHead}
             </h3>
             <ul className="mt-4 space-y-2.5 text-sm text-ink-muted">
-              <li><a href="tel:+351300000000" className="transition hover:text-ink">300 000 000</a></li>
-              <li><a href="mailto:ola@eurekasi.pt" className="transition hover:text-ink">ola@eurekasi.pt</a></li>
+              <li>
+                <span className="block text-xs text-ink-faint">{t.footer.callLabel}</span>
+                <a href={contact.callHref} className="font-medium transition hover:text-ink">
+                  {contact.callPhone}
+                </a>
+              </li>
+              <li>
+                <span className="block text-xs text-ink-faint">{t.footer.whatsappLabel}</span>
+                <a
+                  href={contact.whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium transition hover:text-ink"
+                >
+                  {contact.whatsappPhone}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${contact.email}`} className="transition hover:text-ink">
+                  {contact.email}
+                </a>
+              </li>
               <li className="text-ink-faint">{t.footer.hours}</li>
             </ul>
           </div>

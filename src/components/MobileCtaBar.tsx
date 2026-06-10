@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useBooking } from '../booking'
 import { useLang } from '../i18n'
+import { contact } from '../data'
 import { ArrowIcon, WhatsappIcon } from '../icons'
 
 /**
@@ -28,7 +29,9 @@ export default function MobileCtaBar() {
     >
       <div className="flex items-center gap-2.5">
         <a
-          href="https://wa.me/351300000000"
+          href={contact.whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label="WhatsApp"
           className="grid h-14 w-14 shrink-0 place-items-center rounded-full border border-ink/10 bg-white p-3 text-accent-600"
         >

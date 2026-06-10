@@ -1,5 +1,6 @@
 import { useBooking } from '../booking'
 import { useLang } from '../i18n'
+import { contact } from '../data'
 import { ArrowIcon, PhoneIcon, ClockIcon } from '../icons'
 
 export default function FinalCta() {
@@ -36,10 +37,10 @@ export default function FinalCta() {
               <ArrowIcon className="h-5 w-5" />
             </button>
             <a
-              href="tel:+351300000000"
+              href={contact.callHref}
               className="btn w-full border border-white/30 px-7 py-5 text-base text-white hover:bg-white/10 sm:w-auto"
             >
-              <PhoneIcon className="h-5 w-5" /> 300 000 000
+              <PhoneIcon className="h-5 w-5" /> {contact.callPhone}
             </a>
           </div>
         </div>
