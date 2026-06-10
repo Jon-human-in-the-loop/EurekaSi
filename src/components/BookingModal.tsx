@@ -4,10 +4,12 @@ import { useLang, fill } from '../i18n'
 import { serviceMeta } from '../data'
 import { CheckIcon, CloseIcon, ClockIcon, ShieldIcon, ArrowIcon } from '../icons'
 
-type Step = 0 | 1 | 2 | 3
+// Wizard: 0 ¿Qué? · 1 ¿Dónde? · 2 ¿Cuándo? · 3 Contacto · 4 Éxito
+type Step = 0 | 1 | 2 | 3 | 4
 type Urgency = 'hoje' | 'esta-semana' | 'flexivel'
 
 const URGENCY_IDS: Urgency[] = ['hoje', 'esta-semana', 'flexivel']
+const LAST_INPUT_STEP: Step = 3
 
 export default function BookingModal() {
   const { isOpen, close, preselectedService } = useBooking()
@@ -51,10 +53,12 @@ export default function BookingModal() {
     step === 0
       ? !!service
       : step === 1
-        ? !!urgency
+        ? contact.postal.trim().length >= 4
         : step === 2
-          ? contact.name.length > 0 && contact.phone.length >= 9
-          : true
+          ? !!urgency
+          : step === 3
+            ? contact.name.trim().length > 0 && contact.phone.replace(/\D/g, '').length >= 9
+            : true
 
   const submit = async () => {
     setSending(true)
@@ -71,11 +75,11 @@ export default function BookingModal() {
           phone: contact.phone,
           postal: contact.postal,
           lang,
-          company, // honeypot
+          company,
         }),
       })
       if (!res.ok) throw new Error(String(res.status))
-      setStep(3)
+      setStep(4)
     } catch {
       setSendError(true)
     } finally {
@@ -100,7 +104,7 @@ export default function BookingModal() {
               {m.eyebrow}
             </p>
             <h3 className="font-display text-lg font-bold tracking-tightest">
-              {step === 3 ? m.successTitle : m.title}
+              {step === 4 ? m.successTitle : m.title}
             </h3>
           </div>
           <button
@@ -112,10 +116,10 @@ export default function BookingModal() {
           </button>
         </div>
 
-        {/* Progresso */}
-        {step < 3 && (
+        {/* Progresso (4 passos) */}
+        {step < 4 && (
           <div className="flex gap-1.5 px-6 pt-4">
-            {[0, 1, 2].map((i) => (
+            {[0, 1, 2, 3].map((i) => (
               <span
                 key={i}
                 className={`h-1.5 flex-1 rounded-full transition-colors ${
@@ -128,6 +132,7 @@ export default function BookingModal() {
 
         {/* Conteúdo */}
         <div className="flex-1 overflow-y-auto px-6 py-6">
+          {/* 0 · ¿Qué? */}
           {step === 0 && (
             <fieldset>
               <legend className="mb-4 text-base font-semibold">{m.step0Legend}</legend>
@@ -156,7 +161,29 @@ export default function BookingModal() {
             </fieldset>
           )}
 
+          {/* 1 · ¿Dónde? */}
           {step === 1 && (
+            <div className="space-y-4">
+              <label className="block">
+                <span className="mb-2 block text-base font-semibold">{m.whereLegend}</span>
+                <input
+                  inputMode="numeric"
+                  autoFocus
+                  value={contact.postal}
+                  onChange={(e) => setContact({ ...contact, postal: e.target.value })}
+                  placeholder={m.postalPlaceholder}
+                  className="w-full rounded-2xl border border-ink/10 p-4 text-base outline-none transition placeholder:text-ink-faint focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20"
+                />
+              </label>
+              <p className="flex items-center gap-2 text-xs text-ink-muted">
+                <ShieldIcon className="h-4 w-4 shrink-0 text-accent-600" />
+                {m.postalHint}
+              </p>
+            </div>
+          )}
+
+          {/* 2 · ¿Cuándo? */}
+          {step === 2 && (
             <div className="space-y-6">
               <fieldset>
                 <legend className="mb-3 text-base font-semibold">{m.step1Legend}</legend>
@@ -199,7 +226,8 @@ export default function BookingModal() {
             </div>
           )}
 
-          {step === 2 && (
+          {/* 3 · Contacto */}
+          {step === 3 && (
             <div className="space-y-4">
               <p className="text-sm text-ink-muted">{m.contactIntro}</p>
               <label className="block">
@@ -218,18 +246,6 @@ export default function BookingModal() {
                   value={contact.phone}
                   onChange={(e) => setContact({ ...contact, phone: e.target.value })}
                   placeholder={m.phonePlaceholder}
-                  className="w-full rounded-2xl border border-ink/10 p-4 text-sm outline-none transition placeholder:text-ink-faint focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20"
-                />
-              </label>
-              <label className="block">
-                <span className="mb-1.5 block text-sm font-semibold">
-                  {m.postalLabel} <span className="font-normal text-ink-faint">{m.postalHint}</span>
-                </span>
-                <input
-                  inputMode="numeric"
-                  value={contact.postal}
-                  onChange={(e) => setContact({ ...contact, postal: e.target.value })}
-                  placeholder={m.postalPlaceholder}
                   className="w-full rounded-2xl border border-ink/10 p-4 text-sm outline-none transition placeholder:text-ink-faint focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20"
                 />
               </label>
@@ -255,15 +271,14 @@ export default function BookingModal() {
             </div>
           )}
 
-          {step === 3 && (
+          {/* 4 · Éxito */}
+          {step === 4 && (
             <div className="py-4 text-center">
               <div className="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-full bg-accent-100 text-accent-600 animate-pulse-ring">
                 <CheckIcon className="h-8 w-8" strokeWidth={2.5} />
               </div>
               <h4 className="font-display text-xl font-bold tracking-tightest">
-                {fill(m.successTitleTpl, {
-                  name: contact.name.split(' ')[0] || m.thanksWord,
-                })}
+                {fill(m.successTitleTpl, { name: contact.name.split(' ')[0] || m.thanksWord })}
               </h4>
               <p className="mx-auto mt-2 max-w-sm text-sm text-ink-muted">
                 {fill(m.successBodyTpl, {
@@ -282,7 +297,7 @@ export default function BookingModal() {
 
         {/* Ações */}
         <div className="border-t border-ink/[0.06] px-6 py-4">
-          {step < 3 ? (
+          {step < 4 ? (
             <div className="flex items-center gap-3">
               {step > 0 && (
                 <button
@@ -294,11 +309,11 @@ export default function BookingModal() {
                 </button>
               )}
               <button
-                onClick={() => (step === 2 ? submit() : setStep((s) => (s + 1) as Step))}
+                onClick={() => (step === LAST_INPUT_STEP ? submit() : setStep((s) => (s + 1) as Step))}
                 disabled={!canContinue || sending}
                 className="btn-accent flex-1 disabled:cursor-not-allowed disabled:opacity-40"
               >
-                {step === 2 ? (sending ? m.sending : m.submit) : m.continue}
+                {step === LAST_INPUT_STEP ? (sending ? m.sending : m.submit) : m.continue}
                 {!sending && <ArrowIcon className="h-5 w-5" />}
               </button>
             </div>

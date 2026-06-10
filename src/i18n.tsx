@@ -233,6 +233,7 @@ const pt = {
     title: 'Pedir orçamento',
     successTitle: 'Pedido recebido',
     step0Legend: 'De que serviço precisa?',
+    whereLegend: 'Onde é o serviço?',
     step1Legend: 'Para quando precisa?',
     urgencyOptions: {
       hoje: { label: 'É urgente, o mais cedo possível', hint: 'Procuramos técnico para hoje' },
@@ -484,6 +485,7 @@ const en: Dict = {
     title: 'Get a quote',
     successTitle: 'Request received',
     step0Legend: 'Which service do you need?',
+    whereLegend: 'Where is the job?',
     step1Legend: 'When do you need it?',
     urgencyOptions: {
       hoje: { label: "It's urgent, as soon as possible", hint: 'We look for a technician today' },
@@ -735,6 +737,7 @@ const es: Dict = {
     title: 'Pedir presupuesto',
     successTitle: 'Solicitud recibida',
     step0Legend: '¿Qué servicio necesitas?',
+    whereLegend: '¿Dónde es el servicio?',
     step1Legend: '¿Para cuándo lo necesitas?',
     urgencyOptions: {
       hoje: { label: 'Es urgente, lo antes posible', hint: 'Buscamos técnico para hoy' },

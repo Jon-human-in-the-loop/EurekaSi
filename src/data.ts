@@ -22,17 +22,25 @@ export type ServiceMeta = {
   id: string
   icon: IconType
   urgent?: boolean
+  /** degradado do placeholder enquanto não há foto real */
+  tone: string
+  /**
+   * Foto real do serviço. Para ativar, basta colocar o ficheiro em
+   * public/images/services/<id>.jpg (ou .webp) e definir o caminho aqui.
+   * Sem foto, mostra-se um placeholder elegante (degradado + ícone).
+   */
+  image?: string
 }
 
 export const serviceMeta: ServiceMeta[] = [
-  { id: 'canalizacao', icon: PlumbingIcon, urgent: true },
-  { id: 'eletricidade', icon: ElectricIcon, urgent: true },
-  { id: 'pintura', icon: PaintIcon },
-  { id: 'telhados', icon: RoofIcon, urgent: true },
-  { id: 'limpeza', icon: CleanIcon },
-  { id: 'montagens', icon: CarpentryIcon },
-  { id: 'ar-condicionado', icon: AcIcon, urgent: true },
-  { id: 'paineis-solares', icon: SolarIcon },
+  { id: 'canalizacao', icon: PlumbingIcon, urgent: true, tone: 'from-sky-100 to-sky-200' },
+  { id: 'eletricidade', icon: ElectricIcon, urgent: true, tone: 'from-amber-100 to-amber-200' },
+  { id: 'pintura', icon: PaintIcon, tone: 'from-violet-100 to-violet-200' },
+  { id: 'telhados', icon: RoofIcon, urgent: true, tone: 'from-orange-100 to-orange-200' },
+  { id: 'limpeza', icon: CleanIcon, tone: 'from-teal-100 to-teal-200' },
+  { id: 'montagens', icon: CarpentryIcon, tone: 'from-stone-100 to-stone-200' },
+  { id: 'ar-condicionado', icon: AcIcon, urgent: true, tone: 'from-cyan-100 to-cyan-200' },
+  { id: 'paineis-solares', icon: SolarIcon, tone: 'from-yellow-100 to-amber-200' },
 ]
 
 /**
