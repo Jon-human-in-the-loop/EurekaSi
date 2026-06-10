@@ -81,16 +81,3 @@ export const beforeAfterMeta: BeforeAfterMeta[] = [
   },
 ]
 
-/** Equipa — nome e iniciais estáveis; função/anos traduzem-se no i18n. */
-export type TeamMeta = {
-  name: string
-  initials: string
-  tone: string
-}
-
-export const teamMeta: TeamMeta[] = [
-  { name: 'Tiago R.', initials: 'TR', tone: 'from-accent-200 to-accent-300' },
-  { name: 'Carla M.', initials: 'CM', tone: 'from-sky-200 to-accent-200' },
-  { name: 'André P.', initials: 'AP', tone: 'from-amber-200 to-accent-200' },
-  { name: 'Helena S.', initials: 'HS', tone: 'from-emerald-200 to-accent-200' },
-]

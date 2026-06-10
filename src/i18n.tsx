@@ -180,23 +180,23 @@ const pt = {
     ],
   },
   team: {
-    eyebrow: 'A equipa',
-    title: 'Pessoas reais, verificadas uma a uma.',
+    eyebrow: 'Quem somos',
+    title: 'Tratamos do seu lar como se fosse o nosso.',
     subtitle:
-      'Não somos um diretório anónimo. Conhecemos cada profissional da rede EurekaSi e só trabalhamos com quem trataríamos do nosso próprio lar.',
-    verified: 'Verificado',
+      'Somos uma equipa pequena e dedicada: fazemos tudo nós, sem subcontratação. Fala sempre diretamente com quem executa o trabalho.',
     guarantees: [
-      'Identidade e morada validadas',
+      'Sem subcontratação — sempre os mesmos profissionais',
       'Experiência comprovada no ofício',
-      'Avaliações reais acima de 4,7/5',
+      'Orçamento claro antes de começar',
       'Seguro de responsabilidade civil',
     ],
-    guaranteeBox: 'Garantia EurekaSi: se algo não ficar bem, voltamos sem custos.',
-    members: [
-      { role: 'Canalizador', years: '12 anos' },
-      { role: 'Eletricista', years: '9 anos' },
-      { role: 'Pintor', years: '15 anos' },
-      { role: 'Limpeza', years: '7 anos' },
+    promiseTitle: 'Garantia EurekaSi',
+    promiseText:
+      'Se algo não ficar bem, voltamos sem custos. A sua satisfação é a condição para fecharmos o trabalho.',
+    promisePoints: [
+      'Resposta rápida, muitas vezes no próprio dia',
+      'Preço combinado, sem surpresas',
+      'Trato próximo e de confiança',
     ],
   },
   faq: {
@@ -458,23 +458,23 @@ const en: Dict = {
     ],
   },
   team: {
-    eyebrow: 'The team',
-    title: 'Real people, verified one by one.',
+    eyebrow: 'Who we are',
+    title: 'We treat your home as if it were ours.',
     subtitle:
-      "We're not an anonymous directory. We know every professional in the EurekaSi network and only work with those we'd trust in our own home.",
-    verified: 'Verified',
+      "We're a small, dedicated team: we do everything ourselves, no subcontracting. You always deal directly with the people doing the work.",
     guarantees: [
-      'Identity and address validated',
+      'No subcontracting — always the same people',
       'Proven experience in the trade',
-      'Real reviews above 4.7/5',
+      'Clear quote before we start',
       'Civil liability insurance',
     ],
-    guaranteeBox: "EurekaSi guarantee: if something isn't right, we come back at no cost.",
-    members: [
-      { role: 'Plumber', years: '12 years' },
-      { role: 'Electrician', years: '9 years' },
-      { role: 'Painter', years: '15 years' },
-      { role: 'Cleaning', years: '7 years' },
+    promiseTitle: 'EurekaSi guarantee',
+    promiseText:
+      "If something isn't right, we come back at no cost. Your satisfaction is the condition for closing the job.",
+    promisePoints: [
+      'Fast response, often the same day',
+      'Agreed price, no surprises',
+      'Close, trustworthy service',
     ],
   },
   faq: {
@@ -734,23 +734,23 @@ const es: Dict = {
     ],
   },
   team: {
-    eyebrow: 'El equipo',
-    title: 'Personas reales, verificadas una a una.',
+    eyebrow: 'Quiénes somos',
+    title: 'Cuidamos tu hogar como si fuera el nuestro.',
     subtitle:
-      'No somos un directorio anónimo. Conocemos a cada profesional de la red EurekaSi y solo trabajamos con quienes cuidarían nuestro propio hogar.',
-    verified: 'Verificado',
+      'Somos un equipo pequeño y dedicado: lo hacemos todo nosotros, sin subcontratación. Siempre tratas directamente con quien ejecuta el trabajo.',
     guarantees: [
-      'Identidad y dirección validadas',
+      'Sin subcontratación — siempre las mismas personas',
       'Experiencia comprobada en el oficio',
-      'Reseñas reales por encima de 4,7/5',
+      'Presupuesto claro antes de empezar',
       'Seguro de responsabilidad civil',
     ],
-    guaranteeBox: 'Garantía EurekaSi: si algo no queda bien, volvemos sin coste.',
-    members: [
-      { role: 'Fontanero', years: '12 años' },
-      { role: 'Electricista', years: '9 años' },
-      { role: 'Pintor', years: '15 años' },
-      { role: 'Limpieza', years: '7 años' },
+    promiseTitle: 'Garantía EurekaSi',
+    promiseText:
+      'Si algo no queda bien, volvemos sin coste. Tu satisfacción es la condición para cerrar el trabajo.',
+    promisePoints: [
+      'Respuesta rápida, a menudo el mismo día',
+      'Precio acordado, sin sorpresas',
+      'Trato cercano y de confianza',
     ],
   },
   faq: {
