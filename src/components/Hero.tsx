@@ -1,8 +1,7 @@
 import { useBooking } from '../booking'
 import { useLang } from '../i18n'
-import { serviceMeta, countries } from '../data'
+import { serviceMeta } from '../data'
 import { ShieldIcon, ClockIcon, TagIcon, ArrowIcon } from '../icons'
-import Flag from './Flag'
 
 const trustIcons = [TagIcon, ShieldIcon, ClockIcon]
 
@@ -57,22 +56,6 @@ export default function Hero() {
               )
             })}
           </ul>
-
-          {/* Prova de experiência internacional (real) */}
-          <div className="mt-9 flex flex-col items-center gap-2.5 animate-fade-up">
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              {countries.map((c, i) => (
-                <span
-                  key={c.code}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-white/70 px-3 py-1.5 text-xs font-semibold text-ink-soft shadow-soft backdrop-blur"
-                >
-                  <Flag colors={c.colors} className="h-3.5 w-5" />
-                  {t.countries[i]}
-                </span>
-              ))}
-            </div>
-            <p className="text-xs font-medium text-ink-muted">{t.hero.experience}</p>
-          </div>
         </div>
 
         {/* Acesso rápido aos serviços */}

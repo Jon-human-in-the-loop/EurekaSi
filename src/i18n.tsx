@@ -57,7 +57,7 @@ const pt = {
     items: [
       {
         name: 'Canalização',
-        tagline: 'Fugas, entupimentos e torneiras — resolvidos hoje.',
+        tagline: 'Fugas, entupimentos e torneiras resolvidos hoje.',
         examples: ['Reparar fuga de água', 'Desentupir canos', 'Substituir torneira'],
       },
       {
@@ -114,7 +114,7 @@ const pt = {
       },
       {
         title: 'Profissional à sua porta',
-        text: 'Um técnico verificado confirma a visita — muitas vezes no próprio dia.',
+        text: 'Um técnico verificado confirma a visita, muitas vezes no próprio dia.',
       },
     ],
   },
@@ -147,10 +147,10 @@ const pt = {
     eyebrow: 'Experiência internacional',
     title: 'Trazemos para Portugal o que aprendemos pelo mundo.',
     subtitle:
-      'Mais de 15 anos de ofício em cinco países e três continentes. Normas diferentes, o mesmo cuidado em cada detalhe — agora ao serviço do seu lar em Portugal.',
+      'Mais de 15 anos de ofício em cinco países e três continentes. Normas diferentes, o mesmo cuidado em cada detalhe. Agora ao serviço do seu lar em Portugal.',
     reviewsSoonTitle: 'As primeiras avaliações estão a chegar',
     reviewsSoonText:
-      'Estamos a começar em Portugal. Em breve mostramos aqui avaliações reais de clientes — sem números inventados.',
+      'Estamos a começar em Portugal. Em breve mostramos aqui avaliações reais de clientes, sem números inventados.',
   },
   team: {
     eyebrow: 'Quem somos',
@@ -158,7 +158,7 @@ const pt = {
     subtitle:
       'Somos uma equipa pequena e dedicada: fazemos tudo nós, sem subcontratação. Fala sempre diretamente com quem executa o trabalho.',
     guarantees: [
-      'Sem subcontratação — sempre os mesmos profissionais',
+      'Sem subcontratação, sempre os mesmos profissionais',
       'Experiência comprovada no ofício',
       'Orçamento claro antes de começar',
       'Seguro de responsabilidade civil',
@@ -176,11 +176,11 @@ const pt = {
     eyebrow: 'Perguntas frequentes',
     title: 'Tudo o que precisa de saber.',
     subtitle:
-      'Sem letras pequenas. Se ficar com dúvidas, fale connosco — respondemos a sério.',
+      'Sem letras pequenas. Se ficar com dúvidas, fale connosco. Respondemos a sério.',
     items: [
       {
         q: 'Os preços são mesmo fixos?',
-        a: 'Sim. Para os serviços mais comuns mostramos um preço fixo antes de confirmar. Em trabalhos maiores, enviamos um orçamento gratuito e detalhado — só avança se concordar. Nunca há custos escondidos.',
+        a: 'Sim. Para os serviços mais comuns mostramos um preço fixo antes de confirmar. Em trabalhos maiores, enviamos um orçamento gratuito e detalhado, e só avança se concordar. Nunca há custos escondidos.',
       },
       {
         q: 'Em quanto tempo aparece um profissional?',
@@ -196,7 +196,7 @@ const pt = {
       },
       {
         q: 'Que zonas cobrem?',
-        a: 'Estamos presentes nas principais áreas de Portugal Continental — Grande Lisboa, Grande Porto, Braga, Coimbra, Aveiro, Faro e arredores. Indique o seu código postal para confirmar a cobertura.',
+        a: 'Estamos presentes nas principais áreas de Portugal Continental: Grande Lisboa, Grande Porto, Braga, Coimbra, Aveiro, Faro e arredores. Indique o seu código postal para confirmar a cobertura.',
       },
       {
         q: 'E se algo correr mal?',
@@ -233,7 +233,7 @@ const pt = {
     step0Legend: 'De que serviço precisa?',
     step1Legend: 'Para quando precisa?',
     urgencyOptions: {
-      hoje: { label: 'É urgente — o mais cedo possível', hint: 'Procuramos técnico para hoje' },
+      hoje: { label: 'É urgente, o mais cedo possível', hint: 'Procuramos técnico para hoje' },
       'esta-semana': { label: 'Esta semana', hint: 'Marcamos o melhor dia' },
       flexivel: { label: 'Sou flexível', hint: 'Sem pressa' },
     },
@@ -310,7 +310,7 @@ const en: Dict = {
     items: [
       {
         name: 'Plumbing',
-        tagline: 'Leaks, clogs and taps — fixed today.',
+        tagline: 'Leaks, clogs and taps fixed today.',
         examples: ['Fix a water leak', 'Unclog drains', 'Replace a tap'],
       },
       {
@@ -366,7 +366,7 @@ const en: Dict = {
       },
       {
         title: 'A pro at your door',
-        text: 'A verified technician confirms the visit — often the same day.',
+        text: 'A verified technician confirms the visit, often the same day.',
       },
     ],
   },
@@ -398,10 +398,10 @@ const en: Dict = {
     eyebrow: 'International experience',
     title: 'We bring to Portugal what we learned around the world.',
     subtitle:
-      'More than 15 years of craft across five countries and three continents. Different standards, the same care in every detail — now serving your home in Portugal.',
+      'More than 15 years of craft across five countries and three continents. Different standards, the same care in every detail. Now serving your home in Portugal.',
     reviewsSoonTitle: 'Our first reviews are on the way',
     reviewsSoonText:
-      "We're just getting started in Portugal. Real customer reviews coming soon — no made-up numbers.",
+      "We're just getting started in Portugal. Real customer reviews coming soon, no made-up numbers.",
   },
   team: {
     eyebrow: 'Who we are',
@@ -409,7 +409,7 @@ const en: Dict = {
     subtitle:
       "We're a small, dedicated team: we do everything ourselves, no subcontracting. You always deal directly with the people doing the work.",
     guarantees: [
-      'No subcontracting — always the same people',
+      'No subcontracting, always the same people',
       'Proven experience in the trade',
       'Clear quote before we start',
       'Civil liability insurance',
@@ -426,11 +426,11 @@ const en: Dict = {
   faq: {
     eyebrow: 'FAQ',
     title: 'Everything you need to know.',
-    subtitle: 'No fine print. If you have questions, talk to us — we really answer.',
+    subtitle: 'No fine print. If you have questions, talk to us. We really answer.',
     items: [
       {
         q: 'Are the prices really fixed?',
-        a: 'Yes. For the most common services we show a fixed price before you confirm. For larger jobs, we send a free, detailed quote — you only proceed if you agree. There are never hidden costs.',
+        a: 'Yes. For the most common services we show a fixed price before you confirm. For larger jobs, we send a free, detailed quote, and you only proceed if you agree. There are never hidden costs.',
       },
       {
         q: 'How fast does a professional show up?',
@@ -446,7 +446,7 @@ const en: Dict = {
       },
       {
         q: 'Which areas do you cover?',
-        a: 'We operate in the main areas of mainland Portugal — Greater Lisbon, Greater Porto, Braga, Coimbra, Aveiro, Faro and surroundings. Enter your postcode to confirm coverage.',
+        a: 'We operate in the main areas of mainland Portugal: Greater Lisbon, Greater Porto, Braga, Coimbra, Aveiro, Faro and surroundings. Enter your postcode to confirm coverage.',
       },
       {
         q: 'What if something goes wrong?',
@@ -482,7 +482,7 @@ const en: Dict = {
     step0Legend: 'Which service do you need?',
     step1Legend: 'When do you need it?',
     urgencyOptions: {
-      hoje: { label: "It's urgent — as soon as possible", hint: 'We look for a technician today' },
+      hoje: { label: "It's urgent, as soon as possible", hint: 'We look for a technician today' },
       'esta-semana': { label: 'This week', hint: 'We book the best day' },
       flexivel: { label: "I'm flexible", hint: 'No rush' },
     },
@@ -557,7 +557,7 @@ const es: Dict = {
     items: [
       {
         name: 'Fontanería',
-        tagline: 'Fugas, atascos y grifos — resueltos hoy.',
+        tagline: 'Fugas, atascos y grifos resueltos hoy.',
         examples: ['Reparar fuga de agua', 'Desatascar tuberías', 'Cambiar grifo'],
       },
       {
@@ -614,7 +614,7 @@ const es: Dict = {
       },
       {
         title: 'Profesional en tu puerta',
-        text: 'Un técnico verificado confirma la visita — a menudo el mismo día.',
+        text: 'Un técnico verificado confirma la visita, a menudo el mismo día.',
       },
     ],
   },
@@ -647,10 +647,10 @@ const es: Dict = {
     eyebrow: 'Experiencia internacional',
     title: 'Traemos a Portugal lo que aprendimos por el mundo.',
     subtitle:
-      'Más de 15 años de oficio en cinco países y tres continentes. Normas distintas, el mismo cuidado en cada detalle — ahora al servicio de tu hogar en Portugal.',
+      'Más de 15 años de oficio en cinco países y tres continentes. Normas distintas, el mismo cuidado en cada detalle. Ahora al servicio de tu hogar en Portugal.',
     reviewsSoonTitle: 'Las primeras reseñas están en camino',
     reviewsSoonText:
-      'Estamos empezando en Portugal. Pronto mostraremos aquí reseñas reales de clientes — sin números inventados.',
+      'Estamos empezando en Portugal. Pronto mostraremos aquí reseñas reales de clientes, sin números inventados.',
   },
   team: {
     eyebrow: 'Quiénes somos',
@@ -658,7 +658,7 @@ const es: Dict = {
     subtitle:
       'Somos un equipo pequeño y dedicado: lo hacemos todo nosotros, sin subcontratación. Siempre tratas directamente con quien ejecuta el trabajo.',
     guarantees: [
-      'Sin subcontratación — siempre las mismas personas',
+      'Sin subcontratación, siempre las mismas personas',
       'Experiencia comprobada en el oficio',
       'Presupuesto claro antes de empezar',
       'Seguro de responsabilidad civil',
@@ -675,11 +675,11 @@ const es: Dict = {
   faq: {
     eyebrow: 'Preguntas frecuentes',
     title: 'Todo lo que necesitas saber.',
-    subtitle: 'Sin letra pequeña. Si te quedan dudas, habla con nosotros — respondemos de verdad.',
+    subtitle: 'Sin letra pequeña. Si te quedan dudas, habla con nosotros. Respondemos de verdad.',
     items: [
       {
         q: '¿Los precios son realmente fijos?',
-        a: 'Sí. Para los servicios más comunes mostramos un precio fijo antes de confirmar. En trabajos mayores, enviamos un presupuesto gratuito y detallado — solo avanzas si estás de acuerdo. Nunca hay costes ocultos.',
+        a: 'Sí. Para los servicios más comunes mostramos un precio fijo antes de confirmar. En trabajos mayores, enviamos un presupuesto gratuito y detallado, y solo avanzas si estás de acuerdo. Nunca hay costes ocultos.',
       },
       {
         q: '¿En cuánto tiempo llega un profesional?',
@@ -695,7 +695,7 @@ const es: Dict = {
       },
       {
         q: '¿Qué zonas cubren?',
-        a: 'Estamos presentes en las principales áreas de Portugal Continental — Gran Lisboa, Gran Oporto, Braga, Coímbra, Aveiro, Faro y alrededores. Indica tu código postal para confirmar la cobertura.',
+        a: 'Estamos presentes en las principales áreas de Portugal Continental: Gran Lisboa, Gran Oporto, Braga, Coímbra, Aveiro, Faro y alrededores. Indica tu código postal para confirmar la cobertura.',
       },
       {
         q: '¿Y si algo sale mal?',
@@ -731,7 +731,7 @@ const es: Dict = {
     step0Legend: '¿Qué servicio necesitas?',
     step1Legend: '¿Para cuándo lo necesitas?',
     urgencyOptions: {
-      hoje: { label: 'Es urgente — lo antes posible', hint: 'Buscamos técnico para hoy' },
+      hoje: { label: 'Es urgente, lo antes posible', hint: 'Buscamos técnico para hoy' },
       'esta-semana': { label: 'Esta semana', hint: 'Reservamos el mejor día' },
       flexivel: { label: 'Soy flexible', hint: 'Sin prisa' },
     },
