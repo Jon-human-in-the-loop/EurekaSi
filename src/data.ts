@@ -33,14 +33,14 @@ export type ServiceMeta = {
 }
 
 export const serviceMeta: ServiceMeta[] = [
-  { id: 'canalizacao', icon: PlumbingIcon, urgent: true, tone: 'from-sky-100 to-sky-200' },
-  { id: 'eletricidade', icon: ElectricIcon, urgent: true, tone: 'from-amber-100 to-amber-200' },
-  { id: 'pintura', icon: PaintIcon, tone: 'from-violet-100 to-violet-200' },
-  { id: 'telhados', icon: RoofIcon, urgent: true, tone: 'from-orange-100 to-orange-200' },
-  { id: 'limpeza', icon: CleanIcon, tone: 'from-teal-100 to-teal-200' },
-  { id: 'montagens', icon: CarpentryIcon, tone: 'from-stone-100 to-stone-200' },
-  { id: 'ar-condicionado', icon: AcIcon, urgent: true, tone: 'from-cyan-100 to-cyan-200' },
-  { id: 'paineis-solares', icon: SolarIcon, tone: 'from-yellow-100 to-amber-200' },
+  { id: 'canalizacao', icon: PlumbingIcon, urgent: true, tone: 'from-sky-100 to-sky-200', image: '/images/services/canalizacao.jpg' },
+  { id: 'eletricidade', icon: ElectricIcon, urgent: true, tone: 'from-amber-100 to-amber-200', image: '/images/services/eletricidade.jpg' },
+  { id: 'pintura', icon: PaintIcon, tone: 'from-violet-100 to-violet-200', image: '/images/services/pintura.jpg' },
+  { id: 'telhados', icon: RoofIcon, urgent: true, tone: 'from-orange-100 to-orange-200', image: '/images/services/telhados.jpg' },
+  { id: 'limpeza', icon: CleanIcon, tone: 'from-teal-100 to-teal-200', image: '/images/services/limpeza.jpg' },
+  { id: 'montagens', icon: CarpentryIcon, tone: 'from-stone-100 to-stone-200', image: '/images/services/montagens.jpg' },
+  { id: 'ar-condicionado', icon: AcIcon, urgent: true, tone: 'from-cyan-100 to-cyan-200', image: '/images/services/ar-condicionado.jpg' },
+  { id: 'paineis-solares', icon: SolarIcon, tone: 'from-yellow-100 to-amber-200', image: '/images/services/paineis-solares.jpg' },
 ]
 
 /**
