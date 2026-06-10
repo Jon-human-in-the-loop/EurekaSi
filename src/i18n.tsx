@@ -37,12 +37,12 @@ const pt = {
     ctaPrimary: 'Pedir orçamento grátis',
     ctaSecondary: 'Ver como funciona',
     trust: ['Preço fixo, sem surpresas', 'Profissionais verificados', 'Resposta em < 30 min'],
-    experience: 'Experiência em 5 países e 3 continentes',
+    experience: 'Mais de 15 anos de experiência em 5 países',
     quickAccess: 'Toque no que precisa',
   },
   stats: [
-    { value: '5 países', label: 'Experiência internacional' },
-    { value: '3 continentes', label: 'Onde já trabalhámos' },
+    { value: '+15 anos', label: 'De experiência' },
+    { value: '5 países', label: 'Onde já trabalhámos' },
     { value: '< 30 min', label: 'Resposta em emergência' },
     { value: '100%', label: 'Trabalho garantido' },
   ],
@@ -147,7 +147,7 @@ const pt = {
     eyebrow: 'Experiência internacional',
     title: 'Trazemos para Portugal o que aprendemos pelo mundo.',
     subtitle:
-      'Anos de ofício em cinco países e três continentes. Normas diferentes, o mesmo cuidado em cada detalhe — agora ao serviço do seu lar em Portugal.',
+      'Mais de 15 anos de ofício em cinco países e três continentes. Normas diferentes, o mesmo cuidado em cada detalhe — agora ao serviço do seu lar em Portugal.',
     reviewsSoonTitle: 'As primeiras avaliações estão a chegar',
     reviewsSoonText:
       'Estamos a começar em Portugal. Em breve mostramos aqui avaliações reais de clientes — sem números inventados.',
@@ -291,12 +291,12 @@ const en: Dict = {
     ctaPrimary: 'Get a free quote',
     ctaSecondary: 'See how it works',
     trust: ['Fixed price, no surprises', 'Verified professionals', 'Response in < 30 min'],
-    experience: 'Experience across 5 countries and 3 continents',
+    experience: '15+ years of experience across 5 countries',
     quickAccess: 'Tap what you need',
   },
   stats: [
-    { value: '5 countries', label: 'International experience' },
-    { value: '3 continents', label: 'Where we’ve worked' },
+    { value: '15+ years', label: 'Of experience' },
+    { value: '5 countries', label: 'Where we’ve worked' },
     { value: '< 30 min', label: 'Emergency response' },
     { value: '100%', label: 'Workmanship guaranteed' },
   ],
@@ -398,7 +398,7 @@ const en: Dict = {
     eyebrow: 'International experience',
     title: 'We bring to Portugal what we learned around the world.',
     subtitle:
-      'Years of craft across five countries and three continents. Different standards, the same care in every detail — now serving your home in Portugal.',
+      'More than 15 years of craft across five countries and three continents. Different standards, the same care in every detail — now serving your home in Portugal.',
     reviewsSoonTitle: 'Our first reviews are on the way',
     reviewsSoonText:
       "We're just getting started in Portugal. Real customer reviews coming soon — no made-up numbers.",
@@ -538,12 +538,12 @@ const es: Dict = {
     ctaPrimary: 'Pedir presupuesto gratis',
     ctaSecondary: 'Ver cómo funciona',
     trust: ['Precio fijo, sin sorpresas', 'Profesionales verificados', 'Respuesta en < 30 min'],
-    experience: 'Experiencia en 5 países y 3 continentes',
+    experience: 'Más de 15 años de experiencia en 5 países',
     quickAccess: 'Toca lo que necesitas',
   },
   stats: [
-    { value: '5 países', label: 'Experiencia internacional' },
-    { value: '3 continentes', label: 'Donde hemos trabajado' },
+    { value: '+15 años', label: 'De experiencia' },
+    { value: '5 países', label: 'Donde hemos trabajado' },
     { value: '< 30 min', label: 'Respuesta en emergencia' },
     { value: '100%', label: 'Trabajo garantizado' },
   ],
@@ -647,7 +647,7 @@ const es: Dict = {
     eyebrow: 'Experiencia internacional',
     title: 'Traemos a Portugal lo que aprendimos por el mundo.',
     subtitle:
-      'Años de oficio en cinco países y tres continentes. Normas distintas, el mismo cuidado en cada detalle — ahora al servicio de tu hogar en Portugal.',
+      'Más de 15 años de oficio en cinco países y tres continentes. Normas distintas, el mismo cuidado en cada detalle — ahora al servicio de tu hogar en Portugal.',
     reviewsSoonTitle: 'Las primeras reseñas están en camino',
     reviewsSoonText:
       'Estamos empezando en Portugal. Pronto mostraremos aquí reseñas reales de clientes — sin números inventados.',
