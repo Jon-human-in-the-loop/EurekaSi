@@ -15,8 +15,8 @@ type IconType = ComponentType<SVGProps<SVGSVGElement>>
 /**
  * Metadados ESTRUTURAIS dos serviços (não traduzíveis): ícone e se é uma
  * categoria de urgências. O texto (nome, tagline, exemplos) vive em
- * src/i18n.tsx. Os PREÇOS não são públicos — vivem na área de admin
- * (src/admin/pricingData.ts), para captação de leads sem mostrar valores.
+ * src/i18n.tsx. Os PREÇOS não são públicos — vivem no servidor
+ * (api/_lib/pricing.ts) e servem-se à área de admin via endpoint protegido.
  */
 export type ServiceMeta = {
   id: string
@@ -35,21 +35,20 @@ export const serviceMeta: ServiceMeta[] = [
   { id: 'paineis-solares', icon: SolarIcon },
 ]
 
-/** Avaliações — dados estáveis (nomes, cidades, rating). O texto traduz-se no i18n. */
-export type TestimonialMeta = {
-  name: string
-  city: string
-  rating: number
-  initials: string
-}
+/**
+ * Países onde a equipa já trabalhou (experiência internacional real).
+ * As cores aproximam a bandeira em barras minimalistas — fiáveis em todas
+ * as plataformas (ao contrário dos emoji de bandeira). Os nomes traduzem-se
+ * no i18n (array `countries`, alinhado por índice).
+ */
+export type Country = { code: string; colors: string[] }
 
-export const testimonialMeta: TestimonialMeta[] = [
-  { name: 'Mariana Costa', city: 'Lisboa, Alvalade', rating: 5, initials: 'MC' },
-  { name: 'João Almeida', city: 'Porto, Cedofeita', rating: 5, initials: 'JA' },
-  { name: 'Sofia Marques', city: 'Cascais', rating: 5, initials: 'SM' },
-  { name: 'Ricardo Nunes', city: 'Braga', rating: 5, initials: 'RN' },
-  { name: 'Inês Ferreira', city: 'Lisboa, Telheiras', rating: 5, initials: 'IF' },
-  { name: 'Pedro Tavares', city: 'Almada', rating: 5, initials: 'PT' },
+export const countries: Country[] = [
+  { code: 'ar', colors: ['#74ACDF', '#FFFFFF', '#74ACDF'] },
+  { code: 've', colors: ['#FCDD09', '#003893', '#CF142B'] },
+  { code: 'us', colors: ['#B22234', '#FFFFFF', '#3C3B6E'] },
+  { code: 'de', colors: ['#000000', '#DD0000', '#FFCE00'] },
+  { code: 'pt', colors: ['#006600', '#FF0000'] },
 ]
 
 /** Antes/Depois — tons dos placeholders + localização (nome próprio, não traduz). */

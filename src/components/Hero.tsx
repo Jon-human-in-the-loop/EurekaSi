@@ -1,7 +1,8 @@
 import { useBooking } from '../booking'
 import { useLang } from '../i18n'
-import { serviceMeta, testimonialMeta } from '../data'
-import { StarIcon, ShieldIcon, ClockIcon, TagIcon, ArrowIcon } from '../icons'
+import { serviceMeta, countries } from '../data'
+import { ShieldIcon, ClockIcon, TagIcon, ArrowIcon } from '../icons'
+import Flag from './Flag'
 
 const trustIcons = [TagIcon, ShieldIcon, ClockIcon]
 
@@ -57,27 +58,20 @@ export default function Hero() {
             })}
           </ul>
 
-          <div className="mt-9 flex items-center justify-center gap-3 animate-fade-up">
-            <div className="flex -space-x-2">
-              {testimonialMeta.slice(0, 4).map((m, idx) => (
+          {/* Prova de experiência internacional (real) */}
+          <div className="mt-9 flex flex-col items-center gap-2.5 animate-fade-up">
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {countries.map((c, i) => (
                 <span
-                  key={m.initials}
-                  className="grid h-9 w-9 place-items-center rounded-full border-2 border-cream bg-ink text-[11px] font-bold text-white"
-                  style={{ zIndex: 4 - idx }}
+                  key={c.code}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-white/70 px-3 py-1.5 text-xs font-semibold text-ink-soft shadow-soft backdrop-blur"
                 >
-                  {m.initials}
+                  <Flag colors={c.colors} className="h-3.5 w-5" />
+                  {t.countries[i]}
                 </span>
               ))}
             </div>
-            <div className="text-left">
-              <div className="flex items-center gap-1 text-accent-500">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarIcon key={i} className="h-4 w-4" />
-                ))}
-                <span className="ml-1 text-sm font-bold text-ink">{t.stats[0].value.split('/')[0]}</span>
-              </div>
-              <p className="text-xs text-ink-muted">{t.hero.reviewsLine}</p>
-            </div>
+            <p className="text-xs font-medium text-ink-muted">{t.hero.experience}</p>
           </div>
         </div>
 

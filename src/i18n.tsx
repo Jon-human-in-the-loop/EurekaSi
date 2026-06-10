@@ -22,7 +22,8 @@ export const LANGS: { code: Lang; label: string; htmlLang: string }[] = [
 
 const pt = {
   brand: 'EurekaSi',
-  nav: ['Serviços', 'Como funciona', 'Trabalhos', 'Avaliações'],
+  nav: ['Serviços', 'Como funciona', 'Trabalhos', 'Experiência'],
+  countries: ['Argentina', 'Venezuela', 'Estados Unidos', 'Alemanha', 'Portugal'],
   common: {
     requestQuote: 'Pedir orçamento',
     requestQuoteFree: 'Pedir orçamento grátis',
@@ -36,14 +37,14 @@ const pt = {
     ctaPrimary: 'Pedir orçamento grátis',
     ctaSecondary: 'Ver como funciona',
     trust: ['Preço fixo, sem surpresas', 'Profissionais verificados', 'Resposta em < 30 min'],
-    reviewsLine: '+2 400 avaliações de clientes em Portugal',
+    experience: 'Experiência em 5 países e 3 continentes',
     quickAccess: 'Toque no que precisa',
   },
   stats: [
-    { value: '4,9/5', label: 'Avaliação média' },
-    { value: '12 000+', label: 'Serviços concluídos' },
+    { value: '5 países', label: 'Experiência internacional' },
+    { value: '3 continentes', label: 'Onde já trabalhámos' },
     { value: '< 30 min', label: 'Resposta em emergência' },
-    { value: '100%', label: 'Profissionais verificados' },
+    { value: '100%', label: 'Trabalho garantido' },
   ],
   services: {
     eyebrow: 'Serviços',
@@ -142,42 +143,14 @@ const pt = {
       },
     ],
   },
-  reviews: {
-    eyebrow: 'Prova social',
-    title: 'Quem nos abriu a porta, voltou a chamar.',
-    ratingCount: '+2 400 avaliações',
-    items: [
-      {
-        service: 'Canalização',
-        quote:
-          'Tinha uma fuga debaixo do lava-loiça e em menos de uma hora estava resolvido. O preço foi exatamente o que me indicaram. Recomendo sem hesitar.',
-      },
-      {
-        service: 'Eletricidade',
-        quote:
-          'O quadro ia abaixo constantemente. O técnico chegou à hora, explicou tudo e deixou tudo a funcionar. Profissionalismo do início ao fim.',
-      },
-      {
-        service: 'Pintura',
-        quote:
-          'Pintaram a sala e dois quartos num fim de semana. Cuidado com os móveis, limpos no final. O antes e depois é impressionante.',
-      },
-      {
-        service: 'Telhados',
-        quote:
-          'Infiltração no teto a piorar com a chuva. Vieram no próprio dia, identificaram a telha partida e impermeabilizaram. Tranquilidade total.',
-      },
-      {
-        service: 'Limpeza',
-        quote:
-          'Limpeza de fim de obra impecável. A casa parecia nova. Pontuais, simpáticos e muito minuciosos. Já agendei a limpeza mensal.',
-      },
-      {
-        service: 'Montagens',
-        quote:
-          'Montaram um roupeiro grande e fixaram prateleiras. Rápido, sem estragos na parede e a um preço justo. Voltarei a usar.',
-      },
-    ],
+  experience: {
+    eyebrow: 'Experiência internacional',
+    title: 'Trazemos para Portugal o que aprendemos pelo mundo.',
+    subtitle:
+      'Anos de ofício em cinco países e três continentes. Normas diferentes, o mesmo cuidado em cada detalhe — agora ao serviço do seu lar em Portugal.',
+    reviewsSoonTitle: 'As primeiras avaliações estão a chegar',
+    reviewsSoonText:
+      'Estamos a começar em Portugal. Em breve mostramos aqui avaliações reais de clientes — sem números inventados.',
   },
   team: {
     eyebrow: 'Quem somos',
@@ -244,7 +217,7 @@ const pt = {
     companyHead: 'Empresa',
     companyLinks: [
       { label: 'Trabalhos', href: '#trabalhos' },
-      { label: 'Avaliações', href: '#avaliacoes' },
+      { label: 'Experiência', href: '#experiencia' },
       { label: 'Como funciona', href: '#como-funciona' },
       { label: 'Trabalhar connosco', href: '#' },
     ],
@@ -303,7 +276,8 @@ export type Dict = typeof pt
 
 const en: Dict = {
   brand: 'EurekaSi',
-  nav: ['Services', 'How it works', 'Work', 'Reviews'],
+  nav: ['Services', 'How it works', 'Work', 'Experience'],
+  countries: ['Argentina', 'Venezuela', 'United States', 'Germany', 'Portugal'],
   common: {
     requestQuote: 'Get a quote',
     requestQuoteFree: 'Get a free quote',
@@ -317,14 +291,14 @@ const en: Dict = {
     ctaPrimary: 'Get a free quote',
     ctaSecondary: 'See how it works',
     trust: ['Fixed price, no surprises', 'Verified professionals', 'Response in < 30 min'],
-    reviewsLine: '+2,400 customer reviews in Portugal',
+    experience: 'Experience across 5 countries and 3 continents',
     quickAccess: 'Tap what you need',
   },
   stats: [
-    { value: '4.9/5', label: 'Average rating' },
-    { value: '12,000+', label: 'Jobs completed' },
+    { value: '5 countries', label: 'International experience' },
+    { value: '3 continents', label: 'Where we’ve worked' },
     { value: '< 30 min', label: 'Emergency response' },
-    { value: '100%', label: 'Verified professionals' },
+    { value: '100%', label: 'Workmanship guaranteed' },
   ],
   services: {
     eyebrow: 'Services',
@@ -420,42 +394,14 @@ const en: Dict = {
       },
     ],
   },
-  reviews: {
-    eyebrow: 'Social proof',
-    title: 'Those who opened the door called us back.',
-    ratingCount: '+2,400 reviews',
-    items: [
-      {
-        service: 'Plumbing',
-        quote:
-          'I had a leak under the kitchen sink and it was fixed in under an hour. The price was exactly what they quoted. I recommend them without hesitation.',
-      },
-      {
-        service: 'Electrical',
-        quote:
-          'The breaker kept tripping. The technician arrived on time, explained everything and left it all working. Professional from start to finish.',
-      },
-      {
-        service: 'Painting',
-        quote:
-          'They painted the living room and two bedrooms in a weekend. Careful with the furniture, spotless at the end. The before and after is impressive.',
-      },
-      {
-        service: 'Roofing',
-        quote:
-          'A ceiling leak getting worse with the rain. They came the same day, found the broken tile and waterproofed it. Total peace of mind.',
-      },
-      {
-        service: 'Cleaning',
-        quote:
-          'Impeccable post-renovation cleaning. The house looked brand new. Punctual, friendly and very thorough. I already booked the monthly clean.',
-      },
-      {
-        service: 'Assembly',
-        quote:
-          'They assembled a large wardrobe and mounted shelves. Fast, no damage to the wall and a fair price. I will use them again.',
-      },
-    ],
+  experience: {
+    eyebrow: 'International experience',
+    title: 'We bring to Portugal what we learned around the world.',
+    subtitle:
+      'Years of craft across five countries and three continents. Different standards, the same care in every detail — now serving your home in Portugal.',
+    reviewsSoonTitle: 'Our first reviews are on the way',
+    reviewsSoonText:
+      "We're just getting started in Portugal. Real customer reviews coming soon — no made-up numbers.",
   },
   team: {
     eyebrow: 'Who we are',
@@ -520,7 +466,7 @@ const en: Dict = {
     companyHead: 'Company',
     companyLinks: [
       { label: 'Work', href: '#trabalhos' },
-      { label: 'Reviews', href: '#avaliacoes' },
+      { label: 'Experience', href: '#experiencia' },
       { label: 'How it works', href: '#como-funciona' },
       { label: 'Work with us', href: '#' },
     ],
@@ -577,7 +523,8 @@ const en: Dict = {
 
 const es: Dict = {
   brand: 'EurekaSi',
-  nav: ['Servicios', 'Cómo funciona', 'Trabajos', 'Reseñas'],
+  nav: ['Servicios', 'Cómo funciona', 'Trabajos', 'Experiencia'],
+  countries: ['Argentina', 'Venezuela', 'Estados Unidos', 'Alemania', 'Portugal'],
   common: {
     requestQuote: 'Pedir presupuesto',
     requestQuoteFree: 'Pedir presupuesto gratis',
@@ -591,14 +538,14 @@ const es: Dict = {
     ctaPrimary: 'Pedir presupuesto gratis',
     ctaSecondary: 'Ver cómo funciona',
     trust: ['Precio fijo, sin sorpresas', 'Profesionales verificados', 'Respuesta en < 30 min'],
-    reviewsLine: '+2 400 reseñas de clientes en Portugal',
+    experience: 'Experiencia en 5 países y 3 continentes',
     quickAccess: 'Toca lo que necesitas',
   },
   stats: [
-    { value: '4,9/5', label: 'Valoración media' },
-    { value: '12 000+', label: 'Servicios completados' },
+    { value: '5 países', label: 'Experiencia internacional' },
+    { value: '3 continentes', label: 'Donde hemos trabajado' },
     { value: '< 30 min', label: 'Respuesta en emergencia' },
-    { value: '100%', label: 'Profesionales verificados' },
+    { value: '100%', label: 'Trabajo garantizado' },
   ],
   services: {
     eyebrow: 'Servicios',
@@ -696,42 +643,14 @@ const es: Dict = {
       },
     ],
   },
-  reviews: {
-    eyebrow: 'Prueba social',
-    title: 'Quien nos abrió la puerta, volvió a llamar.',
-    ratingCount: '+2 400 reseñas',
-    items: [
-      {
-        service: 'Fontanería',
-        quote:
-          'Tenía una fuga debajo del fregadero y en menos de una hora estaba resuelto. El precio fue exactamente el que me indicaron. Lo recomiendo sin dudar.',
-      },
-      {
-        service: 'Electricidad',
-        quote:
-          'El cuadro saltaba constantemente. El técnico llegó puntual, lo explicó todo y lo dejó funcionando. Profesionalidad de principio a fin.',
-      },
-      {
-        service: 'Pintura',
-        quote:
-          'Pintaron el salón y dos habitaciones en un fin de semana. Cuidado con los muebles, todo limpio al final. El antes y después es impresionante.',
-      },
-      {
-        service: 'Tejados',
-        quote:
-          'Una gotera en el techo que empeoraba con la lluvia. Vinieron el mismo día, encontraron la teja rota e impermeabilizaron. Tranquilidad total.',
-      },
-      {
-        service: 'Limpieza',
-        quote:
-          'Limpieza de fin de obra impecable. La casa parecía nueva. Puntuales, amables y muy minuciosos. Ya reservé la limpieza mensual.',
-      },
-      {
-        service: 'Montajes',
-        quote:
-          'Montaron un armario grande y fijaron estantes. Rápido, sin daños en la pared y a un precio justo. Volveré a usarlos.',
-      },
-    ],
+  experience: {
+    eyebrow: 'Experiencia internacional',
+    title: 'Traemos a Portugal lo que aprendimos por el mundo.',
+    subtitle:
+      'Años de oficio en cinco países y tres continentes. Normas distintas, el mismo cuidado en cada detalle — ahora al servicio de tu hogar en Portugal.',
+    reviewsSoonTitle: 'Las primeras reseñas están en camino',
+    reviewsSoonText:
+      'Estamos empezando en Portugal. Pronto mostraremos aquí reseñas reales de clientes — sin números inventados.',
   },
   team: {
     eyebrow: 'Quiénes somos',
@@ -796,7 +715,7 @@ const es: Dict = {
     companyHead: 'Empresa',
     companyLinks: [
       { label: 'Trabajos', href: '#trabalhos' },
-      { label: 'Reseñas', href: '#avaliacoes' },
+      { label: 'Experiencia', href: '#experiencia' },
       { label: 'Cómo funciona', href: '#como-funciona' },
       { label: 'Trabaja con nosotros', href: '#' },
     ],

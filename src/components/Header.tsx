@@ -5,7 +5,7 @@ import { MenuIcon, CloseIcon } from '../icons'
 import Logo from './Logo'
 import LangSwitcher from './LangSwitcher'
 
-const hrefs = ['#servicos', '#como-funciona', '#trabalhos', '#avaliacoes']
+const hrefs = ['#servicos', '#como-funciona', '#trabalhos', '#experiencia']
 
 export default function Header() {
   const { open } = useBooking()
